@@ -276,9 +276,20 @@ class DatabaseConn {
 
     public function Connection() {
 
+        //Production server
         $conn = mysqli_connect("db5001646814.hosting-data.io", "dbu1060335", "Ionos123!", "dbs1366328");
 
+        //Test envoirement
+        //$conn = mysqli_connect("localhost", "calendari");
+
         return $conn;
+    }
+
+    public function ConnectionPDO() {
+
+        $pdo=new PDO("mysql:dbname=dbs1366328;host=db5001646814.hosting-data.io","dbu1060335","Ionos123!");
+
+        return $pdo;
     }
 }
 

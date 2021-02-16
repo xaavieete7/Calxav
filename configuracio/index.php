@@ -14,7 +14,8 @@
     }
 
     //Contract form and calendar form
-    $conn = mysqli_connect("db5001646814.hosting-data.io", "dbu1060335", "Ionos123!", "dbs1366328");
+    $objDB = new DatabaseConn();
+    $conn = $objDB->Connection();
     $username = $_SESSION['username'];
     $args = "SELECT * FROM `info_users` WHERE `username` LIKE '$username'";
     $sql = mysqli_query($conn, $args);

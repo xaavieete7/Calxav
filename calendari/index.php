@@ -89,9 +89,11 @@
                                                 <div id="info_table" class="table-responsive col-md-10 col-sm-12 text-center mt-3"></div>
                                             </div>
 
-                                        <?php } else { 
-                                            
-                                            $conn = mysqli_connect("db5001646814.hosting-data.io", "dbu1060335", "Ionos123!", "dbs1366328");
+                                        <?php } else {
+
+                                            $objDB = new DatabaseConn();
+                                            $conn = $objDB->Connection();
+
                                             $mes = date("n");
                                             $any = date("o");
 
@@ -215,7 +217,8 @@
                             if ($_SESSION['rank'] != 'viewer') {
 
                                 $username = $_SESSION['username'];
-                                $conn = mysqli_connect("db5001646814.hosting-data.io", "dbu1060335", "Ionos123!", "dbs1366328");
+                                $objDB = new DatabaseConn();
+                                $conn = $objDB->Connection();
                                 $args = "SELECT * FROM `info_users` WHERE `username` LIKE '$username'";
 
                                 $sql = mysqli_query($conn, $args);
@@ -311,8 +314,8 @@
                     MibotonTotal: {
                         text: "Hores totals",
                         click: function() {
-                            <?php 
-                            $conn = mysqli_connect("db5000546243.hosting-data.io", "dbu208299", "Ionos123!", "dbs524374");
+                            <?php
+                            $conn = $objDB->Connection();
                             $table = $_SESSION['table'];
                             $args = "SELECT SUM(horas) FROM `$table`";
                             $sql = mysqli_query($conn, $args);
