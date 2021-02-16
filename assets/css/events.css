@@ -1,0 +1,9 @@
+/* td options table */
+.option_td {
+    text-align: center;
+}
+
+.option_td a i {
+    font-size: 27px;
+    color: #f44336;
+}

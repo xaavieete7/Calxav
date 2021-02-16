@@ -1,0 +1,36 @@
+/* Custom calendar buttons */
+.fc-MibotonTotal-button,
+.fc-prev-button,
+.fc-next-button,
+.fc-today-button {
+    color: #ffffff;
+    background-color: #ef5350;
+    border-color: #ef5350;
+    box-shadow: none;
+    box-shadow: 0 2px 2px 0 rgb(244 67 54 / 14%), 0 3px 1px -2px rgb(244 67 54 / 20%), 0 1px 5px 0 rgb(244 67 54 / 12%);
+    background-image: none;
+    text-shadow: none;
+    line-height: 1.4em;
+    font-weight: 100;
+    letter-spacing: 0.2px;
+}
+
+.fc-MibotonTotal-button:focus,
+.fc-prev-button:focus,
+.fc-next-button:focus,
+.fc-today-button:focus {
+    outline: 0;
+}
+
+.fc-MibotonTotal-button:hover,
+.fc-prev-button:hover,
+.fc-next-button:hover,
+.fc-today-button:hover {
+    background-color: #e53935;
+    border-color: #e53935;
+}
+
+/* Custom buttons sweet alert */
+.swal2-close:focus {
+    outline: 0;
+}

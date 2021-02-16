@@ -1,0 +1,48 @@
+.navbar {
+
+    margin-bottom: 2%;
+    /* background: #2193b0;
+    background: -webkit-linear-gradient(to top, #6dd5ed, #2193b0);
+    background: linear-gradient(to top, #6dd5ed, #2193b0);
+
+    -webkit-box-shadow: 0px 9px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 9px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 9px 5px 0px rgba(0,0,0,0.75); */
+
+}
+
+.table_container {
+    text-align: center;
+}
+
+@media (max-width: 452px) {
+    .display_none {
+        display: none;
+    }
+
+    .alter_span {
+    text-justify: left;
+}
+}
+
+.alter_span {
+    color: grey;
+    text-justify: inter-word;
+}
+
+#mobile-menu {
+    display: none;
+}
+
+@media (max-width: 767px) {
+
+    #mobile-menu {
+    display: block;
+    }
+}
+
+.disable-disabled:disabled {
+
+    background-color: white;
+}
+

@@ -1,0 +1,16 @@
+/* User profile info */
+.user-info-box {
+    display: inline-block;
+    width: 100%;
+    border-radius: 6px;
+    background-color: #eee;
+}
+
+.user-info-box span {
+    display: inline;
+    margin-left: 10px;}
+
+.user-info-box i.material-icons {
+    font-size: 36px;
+    color: #a9afbb;
+}

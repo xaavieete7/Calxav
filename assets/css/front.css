@@ -1,0 +1,74 @@
+/* Preset CSS */
+.mt-100 {
+    margin-top: 100px;
+}
+
+.profile-img {
+    border-radius: 50%;
+}
+
+/* Nav sub items*/
+.sub-nav-item {
+    width: 244px;
+}
+
+.sub-nav-link {
+    position: relative;
+    left: 15px;
+}
+
+/* required fields */
+i.required {
+    color: red;
+}
+
+/* inline select */
+select {
+    position: relative;
+    bottom: 5px;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.display-none {
+    display: none;
+}
+
+/* Sweet alert icons */
+.error-icon {
+    position: relative;
+    bottom: 1px;
+    vertical-align: middle;
+    font-size: 35px;
+    color: red;
+}
+
+.success-icon {
+    position: relative;
+    bottom: 1px;
+    vertical-align: middle;
+    font-size: 35px;
+    color: #00e600;
+}
+
+/* Media querys */
+@media (max-width: 767px) {
+    .card-container {
+        padding: 0;
+    }
+    
+    .main-panel>.content {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+@media (min-width: 991px) {
+    .hide-brand-name {
+        display: none;
+    }
+}
+
+
