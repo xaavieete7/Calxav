@@ -1,5 +1,5 @@
 <?php session_start(); ?>
-<?php 
+<?php
 
 switch($_POST['action']) {
     case "notifications":
@@ -37,8 +37,9 @@ function remove_notification() {
 
     if ($_POST['id']) {
         $id = $_POST['id'];
-    
-        $conn = mysqli_connect("db5001646814.hosting-data.io", "dbu1060335", "Ionos123!", "dbs1366328");
+
+        $objDB = new DatabaseConn();
+        $conn = $objDB->Connection();
         $args = "DELETE FROM `notificaciones` WHERE id=".$id;
         $sql = mysqli_query($conn, $args);
     

@@ -189,7 +189,7 @@ class NavBar {
     public function Footerlinks() {
 
         //<!--   Core JS Files   -->
-        $html .= '<script src="../assets/js/core/popper.min.js"></script>';
+        $html = '<script src="../assets/js/core/popper.min.js"></script>';
         $html .= '<script src="../assets/js/core/bootstrap-material-design.min.js"></script>';
         $html .= '<script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>';
         //<!-- Plugin for the momentJs  -->
@@ -270,6 +270,16 @@ class TableArray {
         return $meses;
     }
 
+}
+
+class DatabaseConn {
+
+    public function Connection() {
+
+        $conn = mysqli_connect("db5001646814.hosting-data.io", "dbu1060335", "Ionos123!", "dbs1366328");
+
+        return $conn;
+    }
 }
 
 
