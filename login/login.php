@@ -1,5 +1,5 @@
 <?php session_start(); ?>
-<?php require_once('./static.php'); ?>
+<?php require_once('../static.php'); ?>
 <?php
 if (!empty($_POST)) {
 

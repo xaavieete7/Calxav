@@ -76,10 +76,8 @@ switch($accion) {
         if ($rank == 'viewer') {
 
             $user = $_SESSION['cal'];
-
-            $objDB = new DatabaseConn();
-            $conn = $objDB->Connection();
-
+            
+            $conn = mysqli_connect("db5001646814.hosting-data.io", "dbu1060335", "Ionos123!", "dbs1366328");
             $args = "SELECT `table` FROM `info_users` WHERE `username` LIKE '$user'";
             $sql = mysqli_query($conn, $args);
             $rows = mysqli_fetch_assoc($sql);
