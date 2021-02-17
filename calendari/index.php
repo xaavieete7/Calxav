@@ -4,6 +4,8 @@
     
     //Redirect if is not logged
     $objSecurity = new Security();
+    $objDB = new DatabaseConn();
+    $objDB = new DatabaseConn();
     $objSecurity->Logintime("calendari");
 
     $rank = $_SESSION['rank'];
@@ -43,7 +45,7 @@
 
 <script>
     $(document).ready( function(){
-        $('#info_table').load('https://cal.xaviete.com/calendari/table.php');
+        $('#info_table').load('/calendari/table.php');
     });
 </script>
 
@@ -91,93 +93,57 @@
 
                                         <?php } else {
 
-                                            $objDB = new DatabaseConn();
                                             $conn = $objDB->Connection();
 
                                             $mes = date("n");
                                             $any = date("o");
 
-                                            //Hores aquest mes xavi
-                                            $args = "SELECT SUM(`horas`) FROM `eventos` WHERE MONTH(`start`) = '$mes' AND YEAR(`start`) = '$any'";
+                                            $args = "SELECT * FROM `info_users`";
                                             $sql = mysqli_query($conn, $args);
-                                            $rows = mysqli_fetch_assoc($sql);
-                                            $hores_mes_xavi = $rows['SUM(`horas`)'];
-                                            if (empty($hores_mes_xavi)){
-                                                $hores_mes_xavi = 0;
-                                            }
 
-                                            //Hores aquest mes david
-                                            $args = "SELECT SUM(`horas`) FROM `eventos_david` WHERE MONTH(`start`) = '$mes' AND YEAR(`start`) = '$any'";
-                                            $sql = mysqli_query($conn, $args);
-                                            $rows = mysqli_fetch_assoc($sql);
-                                            $hores_mes_david = $rows['SUM(`horas`)'];
-                                            if (empty($hores_mes_david)){
-                                                $hores_mes_david = 0;
-                                            }
+                                            $html = '<div class="row justify-center">';
 
-                                            //Hores aquest mes marc
-                                            $args = "SELECT SUM(`horas`) FROM `eventos_marc` WHERE MONTH(`start`) = '$mes' AND YEAR(`start`) = '$any'";
-                                            $sql = mysqli_query($conn, $args);
-                                            $rows = mysqli_fetch_assoc($sql);
-                                            $hores_mes_marc = $rows['SUM(`horas`)'];
-                                            if (empty($hores_mes_marc)){
-                                                $hores_mes_marc = 0;
-                                            }
-                                            
+                                                while ($rows = mysqli_fetch_assoc($sql)) {
+
+                                                    //Hores aquest mes
+                                                    $table = $rows['table'];
+                                                    $username = $rows['username'];
+                                                    $args = "SELECT SUM(`horas`) FROM `$table` WHERE MONTH(`start`) = '$mes' AND YEAR(`start`) = '$any'";
+                                                    $sql_html = mysqli_query($conn, $args);
+
+                                                    while ($rows_html = mysqli_fetch_assoc($sql_html)) {
+
+                                                        $hores_mes = $rows_html['SUM(`horas`)'];
+                                                        if (empty($hores_mes)){
+                                                            $hores_mes = 0;
+                                                        }
+
+                                                        $html .= '<div class="col-lg-4 col-md-6 col-sm-6">';
+                                                            $html .= '<div class="card card-stats">';
+                                                                $html .= '<div class="card-header card-header-danger card-header-icon">';
+                                                                    $html .= '<div class="card-icon">';
+                                                                        $html .= '<i class="material-icons">person</i>';
+                                                                    $html .= '</div>';
+                                                                    $html .= '<p class="card-category">'.ucfirst($username).'</p>';
+                                                                    $html .= '<h2 class="card-title">'.$hores_mes.'';
+                                                                        $html .= '<small>h</small>';
+                                                                    $html .= '</h2>';
+                                                                $html .= '</div>';
+                                                                $html .= '<div class="card-footer">';
+                                                                    $html .= '<div class="stats"><a href="/calendari?cal='.$username.'" class="text-danger">Veure calendari</a></div>';
+                                                                $html .= '</div>';
+                                                            $html .= '</div>';
+                                                        $html .= '</div>';
+
+                                                    }
+                                                    
+
+                                                }
+
+                                            $html .= '</div>';
+                                            print($html);
+
                                             ?>
-
-                                            <div class="row justify-center">
-                                                <div class="col-lg-4 col-md-6 col-sm-6">
-                                                    <div class="card card-stats">
-                                                        <div class="card-header card-header-danger card-header-icon">
-                                                            <div class="card-icon">
-                                                                <i class="material-icons">person</i>
-                                                            </div>
-                                                            <p class="card-category">Xavi</p>
-                                                            <h2 class="card-title"><?php echo $hores_mes_xavi; ?>
-                                                                <small>h</small>
-                                                            </h2>
-                                                        </div>
-                                                        <div class="card-footer">
-                                                            <div class="stats"><a href="/calendari?cal=xavi" class="text-danger">Veure calendari</a></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-4 col-md-6 col-sm-6">
-                                                    <div class="card card-stats">
-                                                        <div class="card-header card-header-danger card-header-icon">
-                                                            <div class="card-icon">
-                                                                <i class="material-icons">person</i>
-                                                            </div>
-                                                            <p class="card-category">David</p>
-                                                            <h2 class="card-title"><?php echo $hores_mes_david; ?>
-                                                                <small>h</small>
-                                                            </h2>
-                                                        </div>
-                                                        <div class="card-footer">
-                                                            <div class="stats"><a href="/calendari?cal=david" class="text-danger">Veure calendari</a></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-4 col-md-6 col-sm-6">
-                                                    <div class="card card-stats">
-                                                        <div class="card-header card-header-danger card-header-icon">
-                                                            <div class="card-icon">
-                                                                <i class="material-icons">person</i>
-                                                            </div>
-                                                            <p class="card-category">Marc</p>
-                                                            <h2 class="card-title"><?php echo $hores_mes_marc; ?>
-                                                                <small>h</small>
-                                                            </h2>
-                                                        </div>
-                                                        <div class="card-footer">
-                                                            <div class="stats"><a href="/calendari?cal=marc" class="text-danger">Veure calendari</a></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
 
                                         <?php } ?>
 
@@ -217,7 +183,6 @@
                             if ($_SESSION['rank'] != 'viewer') {
 
                                 $username = $_SESSION['username'];
-                                $objDB = new DatabaseConn();
                                 $conn = $objDB->Connection();
                                 $args = "SELECT * FROM `info_users` WHERE `username` LIKE '$username'";
 
@@ -296,6 +261,7 @@
     </div>
 
     <script>
+
         $(document).ready(function($) {
 
             $('#CalendarioWeb').fullCalendar('refetchEvents');
