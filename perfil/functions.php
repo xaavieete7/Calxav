@@ -13,6 +13,7 @@ function form_profile_save(){
         die(json_encode(array('success'=> 0, 'message' => 'Accepta els termes i condicions')));
     }
 
+    require_once('../static.php');
     $username       = $_SESSION['username'];
     $firstname      = $_POST['firstname'];
     $lastname       = $_POST['lastname'];
@@ -24,7 +25,8 @@ function form_profile_save(){
     $carrec         = $_POST['carrec'];
     $is_public      = $_POST['is_public'];
 
-    $conn = mysqli_connect("db5001646814.hosting-data.io", "dbu1060335", "Ionos123!", "dbs1366328");
+    $objDB = new DatabaseConn();
+    $conn = $objDB->Connection();
 
     $args = "UPDATE `users` SET `firstname`='$firstname',`lastname`='$lastname',`email`='$email',`data_neixament`='$data_neixament',`empresa`='$empresa',`ciutat`='$ciutat',`color_preferit`='$color',`carrec`='$carrec',`is_public`='$is_public'  WHERE `username` LIKE '$username'";
     $sql = mysqli_query($conn, $args);

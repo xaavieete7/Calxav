@@ -1,11 +1,13 @@
 <?php session_start(); ?>
+<?php require_once('../static.php'); ?>
 <?php
 if (!empty($_POST)) {
 
     $username = $_POST['username'];
     $password = md5($_POST['password']);
 
-    $conn = mysqli_connect("db5001646814.hosting-data.io", "dbu1060335", "Ionos123!", "dbs1366328");
+    $objDB = new DatabaseConn();
+    $conn = $objDB->Connection();
     $args = "SELECT * FROM `users` WHERE `username` LIKE '$username'";
     $sql = mysqli_query($conn, $args);
 

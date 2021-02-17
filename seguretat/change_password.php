@@ -1,7 +1,7 @@
 <?php session_start(); ?>
 <?php
-
-$conn = mysqli_connect("db5001646814.hosting-data.io", "dbu1060335", "Ionos123!", "dbs1366328");
+$objDB = new DatabaseConn();
+$conn = $objDB->Connection();
 
 if (empty($_POST)) {
     die(json_encode(array('success'=> 0, 'message'=> 'Error! Torna-ho a provar en un altre moment')));

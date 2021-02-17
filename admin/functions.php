@@ -1,5 +1,5 @@
 <?php session_start(); ?>
-<?php 
+<?php require_once('../static.php');
 
 switch($_POST['action']) {
     case "notifications":
@@ -15,7 +15,8 @@ function save_notificaions() {
 
     if (!empty($_POST)) {
 
-        $pdo=new PDO("mysql:dbname=dbs1366328;host=db5001646814.hosting-data.io","dbu1060335","Ionos123!");
+        $objDB = new DatabaseConn();
+        $pdo = $objDB->ConnectionPDO();
     
         $sentenciaSQL = $pdo->prepare("INSERT INTO notificaciones(`title`, `content`, `visibility`, `type`) VALUES (:title, :content, :visibility, :type)");
     
@@ -37,8 +38,9 @@ function remove_notification() {
 
     if ($_POST['id']) {
         $id = $_POST['id'];
-    
-        $conn = mysqli_connect("db5001646814.hosting-data.io", "dbu1060335", "Ionos123!", "dbs1366328");
+
+        $objDB = new DatabaseConn();
+        $conn = $objDB->Connection();
         $args = "DELETE FROM `notificaciones` WHERE id=".$id;
         $sql = mysqli_query($conn, $args);
     

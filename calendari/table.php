@@ -1,6 +1,8 @@
 <?php session_start(); ?>
-<?php 
-$conn = mysqli_connect("db5001646814.hosting-data.io", "dbu1060335", "Ionos123!", "dbs1366328");
+<?php require_once('../static.php'); ?>
+<?php
+$objDB = new DatabaseConn();
+$conn = $objDB->Connection();
 $table = $_SESSION['table'];
 
 if (empty($table)) {

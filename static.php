@@ -101,21 +101,20 @@ class NavBar {
 
                     if ($rank == 'viewer') {
 
-                        $html .= '<li class="nav-item sub-nav-item">';
-                            $html .= '<a class="nav-link sub-nav-link" href="/calendari?cal=xavi">';
-                                $html .= '<p>Xavi</p>';
-                            $html .= '</a>';
-                        $html .= '</li>';
-                        $html .= '<li class="nav-item sub-nav-item">';
-                            $html .= '<a class="nav-link sub-nav-link" href="/calendari?cal=david">';
-                                $html .= '<p>David</p>';
-                            $html .= '</a>';
-                        $html .= '</li>';
-                        $html .= '<li class="nav-item sub-nav-item">';
-                            $html .= '<a class="nav-link sub-nav-link" href="/calendari?cal=marc">';
-                                $html .= '<p>Marc</p>';
-                            $html .= '</a>';
-                        $html .= '</li>';
+                        $objDB = new DatabaseConn();
+                        $conn = $objDB->Connection();
+                        $args = "SELECT `username` FROM `info_users`";
+                        $sql = mysqli_query($conn, $args);
+
+                        while ($rows=mysqli_fetch_assoc($sql)) { 
+
+                            $html .= '<li class="nav-item sub-nav-item">';
+                                $html .= '<a class="nav-link sub-nav-link" href="/calendari?cal='.$rows['username'].'">';
+                                    $html .= '<p>'.ucfirst($rows['username']).'</p>';
+                                $html .= '</a>';
+                            $html .= '</li>';
+
+                        } 
 
                     } else {
 
@@ -189,7 +188,7 @@ class NavBar {
     public function Footerlinks() {
 
         //<!--   Core JS Files   -->
-        $html .= '<script src="../assets/js/core/popper.min.js"></script>';
+        $html = '<script src="../assets/js/core/popper.min.js"></script>';
         $html .= '<script src="../assets/js/core/bootstrap-material-design.min.js"></script>';
         $html .= '<script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>';
         //<!-- Plugin for the momentJs  -->
@@ -270,6 +269,31 @@ class TableArray {
         return $meses;
     }
 
+}
+
+class DatabaseConn {
+
+    public function Connection() {
+
+        //Production server
+        $conn = mysqli_connect("db5001646814.hosting-data.io", "dbu1060335", "Ionos123!", "dbs1366328");
+
+        //Test envoirement
+        //$conn = mysqli_connect("localhost", "calendari");
+
+        return $conn;
+    }
+
+    public function ConnectionPDO() {
+
+        //Production server
+        $pdo=new PDO("mysql:dbname=dbs1366328;host=db5001646814.hosting-data.io","dbu1060335","Ionos123!");
+
+        //Test envoirement
+        //$pdo=new PDO("mysql:dbname=calendari;host=localhost");
+
+        return $pdo;
+    }
 }
 
 

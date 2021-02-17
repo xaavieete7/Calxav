@@ -1,5 +1,7 @@
+<?php require_once('../static.php'); ?>
 <?php
-$conn = mysqli_connect("db5001646814.hosting-data.io", "dbu1060335", "Ionos123!", "dbs1366328");
+$objDB = new DatabaseConn();
+$conn = $objDB->Connection();
 
 $args = "SELECT * FROM `notificaciones`";
 $sql = mysqli_query($conn, $args);

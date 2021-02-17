@@ -1,9 +1,13 @@
 <?php session_start(); ?>
+<?php require_once('../static.php'); ?>
 <?php
 header("Content-Type: application/json");
 
 $accion = (isset($_GET['accion']))?$_GET['accion']:"leer";
-$pdo=new PDO("mysql:dbname=dbs1366328;host=db5001646814.hosting-data.io","dbu1060335","Ionos123!");
+
+$objDB = new DatabaseConn();
+$pdo = $objDB->ConnectionPDO();
+
 switch($accion) {
 
     case 'agregar':
@@ -72,7 +76,7 @@ switch($accion) {
         if ($rank == 'viewer') {
 
             $user = $_SESSION['cal'];
-
+            
             $conn = mysqli_connect("db5001646814.hosting-data.io", "dbu1060335", "Ionos123!", "dbs1366328");
             $args = "SELECT `table` FROM `info_users` WHERE `username` LIKE '$user'";
             $sql = mysqli_query($conn, $args);
@@ -100,17 +104,8 @@ switch($accion) {
             echo json_encode($resultado_final);
 
         }
-
-        
-
-        
-        
     break;
 
 };
-
-
-
-
 
 ?>

@@ -1,5 +1,5 @@
 <?php session_start(); ?>
-<?php 
+<?php require_once('../static.php');
 
 if (!empty($_POST)) {
 
@@ -7,7 +7,8 @@ if (!empty($_POST)) {
         die(json_encode(array('success'=> 0, 'message' => "El títol no pot estar buit")));
     }
 
-    $pdo=new PDO("mysql:dbname=dbs1366328;host=db5001646814.hosting-data.io","dbu1060335","Ionos123!");
+    $objDB = new DatabaseConn();
+    $pdo = $objDB->ConnectionPDO();
 
     $sentenciaSQL = $pdo->prepare("INSERT INTO eventos_importantes(`title`, `description`, `color`, `textcolor`, `start`, `end`, `type`) VALUES (:title, :description, :color, :textColor, :start, :end, :type)");
 
