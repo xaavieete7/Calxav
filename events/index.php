@@ -28,7 +28,7 @@
 <script>
 
     $(document).ready( function(){
-        $('#event_table').load('https://cal.xaviete.com/events/eventos.php');
+        $('#event_table').load('/events/eventos.php');
     });
 
     function removeEvent( id ) {
@@ -37,7 +37,7 @@
             url: 'remove.php',
             data: {'id': id},
             success: function(data){
-                $('#event_table').load('https://cal.xaviete.com/events/eventos.php');
+                $('#event_table').load('/events/eventos.php');
             }
         });
     }

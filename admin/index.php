@@ -30,7 +30,7 @@
 <script>
 
     $(document).ready( function(){
-        $('#notificacion_table').load('https://cal.xaviete.com/admin/notifiaciones.php');
+        $('#notificacion_table').load('/admin/notifiaciones.php');
     });
 
     function removeEvent( id ) {
@@ -52,7 +52,7 @@
                     showConfirmButton: false
                 });
                 
-                $('#notificacion_table').load('https://cal.xaviete.com/admin/notifiaciones.php');
+                $('#notificacion_table').load('/admin/notifiaciones.php');
             }
         });
     }

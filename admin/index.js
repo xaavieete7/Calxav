@@ -20,7 +20,7 @@ $(document).ready( function(){
 
                 if (data.success) {
 
-                    $('#notificacion_table').load('https://cal.xaviete.com/admin/notifiaciones.php');
+                    $('#notificacion_table').load('/admin/notifiaciones.php');
 
                     //Display success message
                     Swal.fire({

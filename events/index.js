@@ -14,7 +14,7 @@ $(document).ready( function(){
 
                 if (data.success) {
 
-                    $('#event_table').load('https://cal.xaviete.com/events/eventos.php');
+                    $('#event_table').load('/events/eventos.php');
 
                     //Display success message
                     Swal.fire({

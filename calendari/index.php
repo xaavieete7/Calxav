@@ -468,7 +468,7 @@
                     if (msg) {
                         $('#CalendarioWeb').fullCalendar('refetchEvents');
                         $("#ModalEventos").modal('toggle');
-                        $('#info_table').load('https://cal.xaviete.com/calendari/table.php');
+                        $('#info_table').load('/calendari/table.php');
                     }
                 },
                 error: function() {
