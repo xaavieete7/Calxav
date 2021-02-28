@@ -13,10 +13,11 @@ switch($accion) {
     case 'agregar':
         //Agregar
         $table = $_SESSION['table'];
-        $sentenciaSQL = $pdo->prepare("INSERT INTO $table(`title`, `horas`, `color`, `textColor`, `priceHour`, `salary`, `start`, `end`, `type`) VALUES (:title, :horas, :color, :textColor, :priceHour, :salary, :start, :end, :type)");
+        $sentenciaSQL = $pdo->prepare("INSERT INTO `eventos` (`user_id`, `title`, `horas`, `color`, `textColor`, `priceHour`, `salary`, `start`, `end`, `type`) VALUES (:user_id ,:title, :horas, :color, :textColor, :priceHour, :salary, :start, :end, :type)");
 
         $respuesta = $sentenciaSQL->execute(array(
 
+            "user_id" => $_POST['user_id'],
             "title" => $_POST['title'],
             "horas" => $_POST['horas'],
             "color" => $_POST['color'],
@@ -40,7 +41,7 @@ switch($accion) {
         if(isset($_POST['id'])){
 
             $table = $_SESSION['table'];
-            $sentenciaSQL = $pdo->prepare("DELETE FROM $table WHERE id=:ID");
+            $sentenciaSQL = $pdo->prepare("DELETE FROM `eventos` WHERE id=:ID");
             $respuesta = $sentenciaSQL->execute(array("ID"=>$_POST['id']));
         }
 
@@ -52,7 +53,7 @@ switch($accion) {
 
         //Modificar
         $table = $_SESSION['table'];
-        $sentenciaSQL = $pdo->prepare("UPDATE $table SET `title`=:title, `horas`=:horas, `color`=:color, `textColor`=:textColor, `priceHour`=:priceHour, `salary`=:salary, `start`=:start, `end`=:end WHERE `id`=:ID");
+        $sentenciaSQL = $pdo->prepare("UPDATE `eventos` SET `title`=:title, `horas`=:horas, `color`=:color, `textColor`=:textColor, `priceHour`=:priceHour, `salary`=:salary, `start`=:start, `end`=:end WHERE `id`=:ID");
         $respuesta = $sentenciaSQL->execute(array(
 
             "ID" => $_POST['id'],
@@ -76,14 +77,15 @@ switch($accion) {
         if ($rank == 'viewer') {
 
             $user = $_SESSION['cal'];
-            
+
+            //PROBLEMA
             $conn = mysqli_connect("db5001646814.hosting-data.io", "dbu1060335", "Ionos123!", "dbs1366328");
-            $args = "SELECT `table` FROM `info_users` WHERE `username` LIKE '$user'";
+            $args = "SELECT `id` FROM `users` WHERE `username` LIKE '$user'";
             $sql = mysqli_query($conn, $args);
             $rows = mysqli_fetch_assoc($sql);
-            $table = $rows['table'];
+            $user_id = $rows['id'];
             
-            $args = $pdo->prepare("SELECT * FROM $table");
+            $args = $pdo->prepare("SELECT * FROM `eventos` WHERE `user_id` LIKE '$user_id'");
             $args->execute();
             $resultado = $args->fetchAll(PDO::FETCH_ASSOC);
 
@@ -91,8 +93,8 @@ switch($accion) {
 
         } else {
 
-            $table = $_SESSION['table'];
-            $args = $pdo->prepare("SELECT * FROM $table");
+            $user_id = $_SESSION['user_id'];
+            $args = $pdo->prepare("SELECT * FROM `eventos` WHERE `user_id` LIKE '$user_id'");
             $args->execute();
             $resultado = $args->fetchAll(PDO::FETCH_ASSOC);
 

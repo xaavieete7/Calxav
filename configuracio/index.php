@@ -17,7 +17,7 @@
     $objDB = new DatabaseConn();
     $conn = $objDB->Connection();
     $username = $_SESSION['username'];
-    $args = "SELECT * FROM `info_users` WHERE `username` LIKE '$username'";
+    $args = "SELECT * FROM `user` WHERE `username` LIKE '$username'";
     $sql = mysqli_query($conn, $args);
     $rows = mysqli_fetch_assoc($sql);
     $priceHour = $rows['priceHour'];
