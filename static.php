@@ -283,14 +283,17 @@ class DatabaseConn {
         } elseif ($_SERVER[HTTP_HOST] == 'cursos.xaviete.com') {
 
             //Production db cursos
+            $conn = mysqli_connect("db5001782897.hosting-data.io", "dbu422968", "Ionos123!", "dbs1470474");
 
         } elseif ($_SERVER[HTTP_HOST] == 'dev1.xaviete.com') {
 
             //Testing db dev1
+            $conn = mysqli_connect("db5001760087.hosting-data.io", "dbu936917", "Ionos123!", "dbs1451767");
 
         } elseif ($_SERVER[HTTP_HOST] == 'dev2.xaviete.com') {
 
             //Testing db dev2
+            $conn = mysqli_connect("db5001760104.hosting-data.io", "dbu1532023", "Ionos123!", "dbs1451782");
 
         }
 
@@ -307,15 +310,17 @@ class DatabaseConn {
         } elseif ($_SERVER[HTTP_HOST] == 'cursos.xaviete.com') {
 
             //Production db cursos
+            $pdo=new PDO("mysql:dbname=dbs1470474;host=db5001782897.hosting-data.io","dbu422968","Ionos123!");
 
         } elseif ($_SERVER[HTTP_HOST] == 'dev1.xaviete.com') {
 
             //Testing db dev1
+            $pdo=new PDO("mysql:dbname=dbs1451767;host=db5001760087.hosting-data.io","dbu936917","Ionos123!");
 
         } elseif ($_SERVER[HTTP_HOST] == 'dev2.xaviete.com') {
 
             //Testing db dev2
-
+            $pdo=new PDO("mysql:dbname=dbs1451782;host=db5001760104.hosting-data.io","dbu1532023","Ionos123!");
         }
 
         return $pdo;
