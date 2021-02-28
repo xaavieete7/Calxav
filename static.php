@@ -5,8 +5,8 @@ class NavBar {
     public function Head() {
 
         $html = '<meta charset="utf-8" />';
-        $html .= '<link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">';
-        $html .= '<link rel="icon" type="image/png" href="../assets/img/favicon.png">';
+        $html .= '<link rel="apple-touch-icon" sizes="76x76" href="../favicon.png">';
+        $html .= '<link rel="icon" type="image/png" href="../favicon.png">';
         $html .= '<title>Calxav - qBID more big</title>';
         $html .= '<meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />';
         //Fonts and icons
@@ -18,7 +18,7 @@ class NavBar {
         //Jquery
         $html .= '<script src="../assets/js/core/jquery.min.js"></script>';
         //Favicon
-        $html .= '<link rel="icon" type="image/png" href="../favicon.png">';
+        $html .= '<link rel="shortcut icon" type="image/png" href="../favicon.png">';
 
         return $html;
     }
@@ -275,22 +275,53 @@ class DatabaseConn {
 
     public function Connection() {
 
-        //Production server
-        $conn = mysqli_connect("db5001646814.hosting-data.io", "dbu1060335", "Ionos123!", "dbs1366328");
+        if ($_SERVER[HTTP_HOST] == 'kreatings.xaviete.com') {
 
-        //Test envoirement
-        //$conn = mysqli_connect("localhost", "calendari");
+            //Production db kreatings
+            $conn = mysqli_connect("db5001646814.hosting-data.io", "dbu1060335", "Ionos123!", "dbs1366328");
+
+        } elseif ($_SERVER[HTTP_HOST] == 'cursos.xaviete.com') {
+
+            //Production db cursos
+            $conn = mysqli_connect("db5001782897.hosting-data.io", "dbu422968", "Ionos123!", "dbs1470474");
+
+        } elseif ($_SERVER[HTTP_HOST] == 'dev1.xaviete.com') {
+
+            //Testing db dev1
+            $conn = mysqli_connect("db5001760087.hosting-data.io", "dbu936917", "Ionos123!", "dbs1451767");
+
+        } elseif ($_SERVER[HTTP_HOST] == 'dev2.xaviete.com') {
+
+            //Testing db dev2
+            $conn = mysqli_connect("db5001760104.hosting-data.io", "dbu1532023", "Ionos123!", "dbs1451782");
+
+        }
 
         return $conn;
     }
 
     public function ConnectionPDO() {
 
-        //Production server
-        $pdo=new PDO("mysql:dbname=dbs1366328;host=db5001646814.hosting-data.io","dbu1060335","Ionos123!");
+        if ($_SERVER[HTTP_HOST] == 'kreatings.xaviete.com') {
 
-        //Test envoirement
-        //$pdo=new PDO("mysql:dbname=calendari;host=localhost");
+            //Production server
+            $pdo=new PDO("mysql:dbname=dbs1366328;host=db5001646814.hosting-data.io","dbu1060335","Ionos123!");
+
+        } elseif ($_SERVER[HTTP_HOST] == 'cursos.xaviete.com') {
+
+            //Production db cursos
+            $pdo=new PDO("mysql:dbname=dbs1470474;host=db5001782897.hosting-data.io","dbu422968","Ionos123!");
+
+        } elseif ($_SERVER[HTTP_HOST] == 'dev1.xaviete.com') {
+
+            //Testing db dev1
+            $pdo=new PDO("mysql:dbname=dbs1451767;host=db5001760087.hosting-data.io","dbu936917","Ionos123!");
+
+        } elseif ($_SERVER[HTTP_HOST] == 'dev2.xaviete.com') {
+
+            //Testing db dev2
+            $pdo=new PDO("mysql:dbname=dbs1451782;host=db5001760104.hosting-data.io","dbu1532023","Ionos123!");
+        }
 
         return $pdo;
     }
