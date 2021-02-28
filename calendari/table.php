@@ -3,25 +3,25 @@
 <?php
 $objDB = new DatabaseConn();
 $conn = $objDB->Connection();
-$table = $_SESSION['table'];
+$user_id = $_SESSION['user_id'];
 
-if (empty($table)) {
+if ($_SESSION['rank'] == 'viewer') {
 
     $cal = $_SESSION['cal'];
-    $args = "SELECT * FROM `info_users` WHERE `username` LIKE '$cal'";
+    $args = "SELECT * FROM `users` WHERE `username` LIKE '$cal'";
     $sql = mysqli_query($conn, $args);
     $rows = mysqli_fetch_assoc($sql);
-    $table = $rows['table'];
+    $user_id = $rows['id'];
 }
 
-$html;
+$html = '';
 
 //Get the number of the month and the year
 $num_mes = date("n");
 $num_any = date("Y");
 
 //Horas
-$args = "SELECT SUM(horas) FROM `$table` WHERE MONTH(`start`) = '$num_mes' AND YEAR(`start`) = '$num_any'";
+$args = "SELECT SUM(horas) FROM `eventos` WHERE `user_id` = '$user_id' AND MONTH(`start`) = '$num_mes' AND YEAR(`start`) = '$num_any'";
 $sql = mysqli_query($conn, $args);
 $rows = mysqli_fetch_assoc($sql);
 $horas = $rows['SUM(horas)'];
@@ -30,7 +30,7 @@ if (empty($horas)){
 }
 
 //Salario
-$args = "SELECT SUM(salary) FROM `$table` WHERE MONTH(`start`) = '$num_mes' AND YEAR(`start`) = '$num_any'";
+$args = "SELECT SUM(salary) FROM `eventos` WHERE `user_id` = '$user_id' AND MONTH(`start`) = '$num_mes' AND YEAR(`start`) = '$num_any'";
 $sql = mysqli_query($conn, $args);
 $rows = mysqli_fetch_assoc($sql);
 $salari = $rows['SUM(salary)'];

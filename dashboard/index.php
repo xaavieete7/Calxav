@@ -254,7 +254,7 @@
 
                         //Rank = viewer
 
-                        $args = 'SELECT * FROM `info_users`';
+                        $args = "SELECT * FROM `users` WHERE `rank` = 'user'";
                         $sql_users = mysqli_query($conn, $args);
                         $html = '<div class="mt-4">';
 
@@ -263,11 +263,11 @@
                                 $dia = date("j");
                                 $mes = date("n");
                                 $any = date("o");
-                                $table = $rows['table'];
+                                $user_id = $rows['id'];
                                 $username = $rows['username'];
 
                                 //Hores avui
-                                $args = "SELECT SUM(`horas`) FROM `$table` WHERE DAY(`start`) = '$dia' AND MONTH(`start`) = '$mes' AND YEAR(`start`) = '$any'";
+                                $args = "SELECT SUM(`horas`) FROM `eventos` WHERE `user_id` LIKE '$user_id' AND DAY(`start`) = '$dia' AND MONTH(`start`) = '$mes' AND YEAR(`start`) = '$any'";
                                 $sql = mysqli_query($conn, $args);
                                 $rows = mysqli_fetch_assoc($sql);
                                 $hores_avui = $rows['SUM(`horas`)'];
@@ -276,7 +276,7 @@
                                 }
 
                                 //Hores aquest mes
-                                $args = "SELECT SUM(`horas`) FROM `$table` WHERE MONTH(`start`) = '$mes' AND YEAR(`start`) = '$any'";
+                                $args = "SELECT SUM(`horas`) FROM `eventos` WHERE `user_id` LIKE '$user_id' AND MONTH(`start`) = '$mes' AND YEAR(`start`) = '$any'";
                                 $sql = mysqli_query($conn, $args);
                                 $rows = mysqli_fetch_assoc($sql);
                                 $hores_mes = $rows['SUM(`horas`)'];
@@ -285,7 +285,7 @@
                                 }
 
                                 //Limit hores
-                                $args = "SELECT `max_hours` FROM `info_users` WHERE `username` LIKE '$username'";
+                                $args = "SELECT `max_hours` FROM `users` WHERE `username` LIKE '$username'";
                                 $sql = mysqli_query($conn, $args);
                                 $rows = mysqli_fetch_assoc($sql);
                                 $hores_limit = $rows['max_hours'];
@@ -294,7 +294,7 @@
                                 }
 
                                 //Hores totals
-                                $args = "SELECT SUM(`horas`) FROM `$table`";
+                                $args = "SELECT SUM(`horas`) FROM `eventos` WHERE `user_id` LIKE '$user_id'";
                                 $sql = mysqli_query($conn, $args);
                                 $rows = mysqli_fetch_assoc($sql);
                                 $hores_total = $rows['SUM(`horas`)'];
@@ -303,7 +303,7 @@
                                 }
 
                                 //Hores limit
-                                $args = "SELECT `max_hours` FROM `info_users` WHERE `username` LIKE '$username'";
+                                $args = "SELECT `max_hours` FROM `users` WHERE `username` LIKE '$username'";
                                 $sql = mysqli_query($conn, $args);
                                 $rows = mysqli_fetch_assoc($sql);
                                 $hores_limit = $rows['max_hours'];

@@ -12,12 +12,11 @@ switch($accion) {
 
     case 'agregar':
         //Agregar
-        $table = $_SESSION['table'];
         $sentenciaSQL = $pdo->prepare("INSERT INTO `eventos` (`user_id`, `title`, `horas`, `color`, `textColor`, `priceHour`, `salary`, `start`, `end`, `type`) VALUES (:user_id ,:title, :horas, :color, :textColor, :priceHour, :salary, :start, :end, :type)");
 
         $respuesta = $sentenciaSQL->execute(array(
 
-            "user_id" => $_POST['user_id'],
+            "user_id" => $_SESSION['user_id'],
             "title" => $_POST['title'],
             "horas" => $_POST['horas'],
             "color" => $_POST['color'],
@@ -39,8 +38,6 @@ switch($accion) {
         $respuesta = false;
 
         if(isset($_POST['id'])){
-
-            $table = $_SESSION['table'];
             $sentenciaSQL = $pdo->prepare("DELETE FROM `eventos` WHERE id=:ID");
             $respuesta = $sentenciaSQL->execute(array("ID"=>$_POST['id']));
         }
@@ -52,11 +49,11 @@ switch($accion) {
     case 'modificar':
 
         //Modificar
-        $table = $_SESSION['table'];
-        $sentenciaSQL = $pdo->prepare("UPDATE `eventos` SET `title`=:title, `horas`=:horas, `color`=:color, `textColor`=:textColor, `priceHour`=:priceHour, `salary`=:salary, `start`=:start, `end`=:end WHERE `id`=:ID");
+        $sentenciaSQL = $pdo->prepare("UPDATE `eventos` SET `user_id`=:user_id, `title`=:title, `horas`=:horas, `color`=:color, `textColor`=:textColor, `priceHour`=:priceHour, `salary`=:salary, `start`=:start, `end`=:end WHERE `id`=:ID");
         $respuesta = $sentenciaSQL->execute(array(
 
             "ID" => $_POST['id'],
+            "user_id" => $_SESSION['user_id'],
             "title" => $_POST['title'],
             "horas" => $_POST['horas'],
             "color" => $_POST['color'],

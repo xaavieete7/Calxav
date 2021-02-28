@@ -98,7 +98,7 @@
                                             $mes = date("n");
                                             $any = date("o");
 
-                                            $args = "SELECT * FROM `info_users`";
+                                            $args = "SELECT * FROM `users` WHERE `rank` LIKE 'user'";
                                             $sql = mysqli_query($conn, $args);
 
                                             $html = '<div class="row justify-center">';
@@ -106,9 +106,9 @@
                                                 while ($rows = mysqli_fetch_assoc($sql)) {
 
                                                     //Hores aquest mes
-                                                    $table = $rows['table'];
+                                                    $user_id = $rows['id'];
                                                     $username = $rows['username'];
-                                                    $args = "SELECT SUM(`horas`) FROM `$table` WHERE MONTH(`start`) = '$mes' AND YEAR(`start`) = '$any'";
+                                                    $args = "SELECT SUM(`horas`) FROM `eventos` WHERE `user_id` LIKE '$user_id' AND MONTH(`start`) = '$mes' AND YEAR(`start`) = '$any'";
                                                     $sql_html = mysqli_query($conn, $args);
 
                                                     while ($rows_html = mysqli_fetch_assoc($sql_html)) {
@@ -184,7 +184,7 @@
 
                                 $username = $_SESSION['username'];
                                 $conn = $objDB->Connection();
-                                $args = "SELECT * FROM `info_users` WHERE `username` LIKE '$username'";
+                                $args = "SELECT * FROM `users` WHERE `username` LIKE '$username'";
 
                                 $sql = mysqli_query($conn, $args);
                                 $rows = mysqli_fetch_assoc($sql);
@@ -282,8 +282,8 @@
                         click: function() {
                             <?php
                             $conn = $objDB->Connection();
-                            $table = $_SESSION['table'];
-                            $args = "SELECT SUM(horas) FROM `$table`";
+                            $user_id = $_SESSION['user_id'];
+                            $args = "SELECT SUM(horas) FROM `eventos` WHERE `user_id` LIKE '$user_id'";
                             $sql = mysqli_query($conn, $args);
                             $rows = mysqli_fetch_assoc($sql);
                             $horas_totals = $rows['SUM(horas)'];
