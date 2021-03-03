@@ -17,6 +17,12 @@
     left: 15px;
 }
 
+.sub-nav-inem-active a {
+    background-color: rgba(200, 200, 200, 0.2);
+    box-shadow: none;
+    color: black;
+}
+
 /* required fields */
 i.required {
     color: red;

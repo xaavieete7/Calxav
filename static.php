@@ -42,7 +42,7 @@ class NavBar {
         return $html;
     }
 
-    public function Sidebar($page) {
+    public function Sidebar($page, $user = "") {
 
         switch($page) {
             case "dashboard":
@@ -107,9 +107,13 @@ class NavBar {
                         $args = "SELECT `username` FROM users WHERE `rank` = 'user'";
                         $sql = mysqli_query($conn, $args);
 
-                        while ($rows=mysqli_fetch_assoc($sql)) { 
+                        while ($rows=mysqli_fetch_assoc($sql)) {
+                            $active = "";
+                            if ($user == $rows['username']) {
+                                $active = "sub-nav-inem-active";
+                            }
 
-                            $html .= '<li class="nav-item sub-nav-item">';
+                            $html .= '<li class="nav-item sub-nav-item '.$active.'">';
                                 $html .= '<a class="nav-link sub-nav-link" href="/calendari?cal='.$rows['username'].'">';
                                     $html .= '<p>'.ucfirst($rows['username']).'</p>';
                                 $html .= '</a>';
@@ -229,6 +233,16 @@ class NavBar {
         $html .= '<script src="../assets/js/plugins/bootstrap-notify.js"></script>';
         //<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
         $html .= '<script src="../assets/js/material-dashboard.js?v=2.1.2" type="text/javascript"></script>';
+        //Scripts data table
+        $html .= '<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/dataTables.foundation.min.css"/>';
+        $html .= '<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.foundation.min.css"/>';
+        $html .= '<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css"/>';
+
+        $html .= '<script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>';
+        $html .= '<script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/dataTables.foundation.min.js"></script>';
+        $html .= '<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js"></script>';
+        $html .= '<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.7/js/responsive.foundation.min.js"></script>';
+
     
         return $html;
     }

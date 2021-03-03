@@ -1,0 +1,11 @@
+#table_length, #table_filter label {
+    display: none;
+}
+
+#table_paginate * {
+    color: #ea1c0d !important;
+}
+
+table.dataTable thead th, table.dataTable tfoot th {
+    font-weight: normal !important;
+}
