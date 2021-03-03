@@ -76,6 +76,12 @@ if ($_SESSION['rank'] == 'viewer') {
         $html .= '</tbody>';
     $html .= '</table>';
 
+    $html .= '<div class="row justify-center">';
+        $html .= '<div class="text-right col-md-12 col-sm-12">';
+            $html .= '<a href="/estadistiques?user_id='.$user_id.'" class="text-danger">Veure la taula completa</a>';
+        $html .= '</div>';
+    $html .= '</div>';
+
 } else {
 
     //Get the number of the month and the year

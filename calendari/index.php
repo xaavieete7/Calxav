@@ -53,7 +53,7 @@
 
     <div class="wrapper">
         <!-- Sidebar -->
-	    <?php printf($obj->Sidebar("calendari")); ?>
+	    <?php printf($obj->Sidebar("calendari", $_GET['cal'])); ?>
 
         <div class="main-panel">
 
