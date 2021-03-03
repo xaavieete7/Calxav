@@ -52,7 +52,7 @@
 
                                             $objTable = new TableArray();
                                             $meses = $objTable->ArrayMonth();
-                                            $table = $_SESSION['table'];
+                                            $user_id = $_SESSION["user_id"];
 
                                             $html = '<table class="table text-center">';
 
@@ -69,13 +69,13 @@
                                                     foreach ($meses as $mes => $num) {
 
                                                         //Horas
-                                                        $args = "SELECT SUM(horas) FROM `$table` WHERE MONTH(`start`) = $num[0] AND YEAR(`start`) = $num[1]";
+                                                        $args = "SELECT SUM(horas) FROM `eventos` WHERE `user_id` = $user_id AND MONTH(`start`) = $num[0] AND YEAR(`start`) = $num[1]";
                                                         $sql = mysqli_query($conn, $args);
                                                         $rows = mysqli_fetch_assoc($sql);
                                                         $horas = $rows['SUM(horas)'];
 
                                                         //Salario
-                                                        $args = "SELECT SUM(salary) FROM `$table` WHERE MONTH(`start`) = $num[0] AND YEAR(`start`) = $num[1]";
+                                                        $args = "SELECT SUM(salary) FROM `eventos` WHERE `user_id` = $user_id AND MONTH(`start`) = $num[0] AND YEAR(`start`) = $num[1]";
                                                         $sql = mysqli_query($conn, $args);
                                                         $rows = mysqli_fetch_assoc($sql);
                                                         $salari = $rows['SUM(salary)'];
@@ -91,13 +91,13 @@
 
                                                 $html .= '</tbody>';
 
-                                                $args = "SELECT SUM(horas) FROM `$table`";
+                                                $args = "SELECT SUM(horas) FROM `eventos` WHERE `user_id` = $user_id";
                                                 $sql = mysqli_query($conn, $args);
                                                 $rows = mysqli_fetch_assoc($sql);
 
                                                 $horas_totals = $rows['SUM(horas)'];
 
-                                                $args = "SELECT SUM(salary) FROM `$table`";
+                                                $args = "SELECT SUM(salary) FROM `eventos` WHERE `user_id` = $user_id";
                                                 $sql = mysqli_query($conn, $args);
                                                 $rows = mysqli_fetch_assoc($sql);
 

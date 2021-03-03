@@ -103,7 +103,7 @@ class NavBar {
 
                         $objDB = new DatabaseConn();
                         $conn = $objDB->Connection();
-                        $args = "SELECT `username` FROM `info_users`";
+                        $args = "SELECT `username` FROM users WHERE `rank` = 'user'";
                         $sql = mysqli_query($conn, $args);
 
                         while ($rows=mysqli_fetch_assoc($sql)) { 

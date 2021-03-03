@@ -27,12 +27,6 @@ if (!empty($_POST)) {
         $args_last_session = "UPDATE `users` SET `last_connection`='$last_session' WHERE `username` LIKE '$username'";
         $sql_last_session = mysqli_query($conn, $args_last_session);
 
-        $args = "SELECT * FROM `info_users` WHERE `username` LIKE '$username'";
-        $sql = mysqli_query($conn, $args);
-        $rows=mysqli_fetch_assoc($sql);
-
-        $_SESSION['table'] = $rows['table'];
-
         die(json_encode(array('success'=> 1, 'message' => "login")));
 
     } else {

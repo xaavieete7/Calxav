@@ -22,7 +22,7 @@ function form_contract_save(){
         $objDB = new DatabaseConn();
         $conn = $objDB->Connection();
 
-        $args = "UPDATE `info_users` SET `priceHour`='$priceHour', `salary_target`='$salary_target', `max_hours`='$max_hours' WHERE `username` LIKE '$username'";
+        $args = "UPDATE `users` SET `priceHour`='$priceHour', `salary_target`='$salary_target', `max_hours`='$max_hours' WHERE `username` LIKE '$username'";
         $sql = mysqli_query($conn, $args);
 
         die(json_encode(array('success'=> 1, 'message' => 'Els canvis s\'han guardat correctament')));
@@ -45,7 +45,7 @@ function form_calendar_save() {
         $objDB = new DatabaseConn();
         $conn = $objDB->Connection();
 
-        $args = "UPDATE `info_users` SET `default_hour`='$default_hour' WHERE `username` LIKE '$username'";
+        $args = "UPDATE `users` SET `default_hour`='$default_hour' WHERE `username` LIKE '$username'";
         $sql = mysqli_query($conn, $args);
 
         die(json_encode(array('success'=> 1, 'message' => 'Els canvis s\'han guardat correctament')));
