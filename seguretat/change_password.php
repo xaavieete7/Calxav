@@ -21,7 +21,7 @@ if (empty($_POST['repetePass'])) {
 
 //Password antic
 $user_id = $_SESSION['user_id'];
-$args = "SELECT `password` FROM `users` WHERE `id` = $user_id";
+$args = "SELECT `password` FROM `users` WHERE `id` LIKE '$user_id'";
 $sql = mysqli_query($conn, $args);
 $rows = mysqli_fetch_assoc($sql);
 $old_password_db = $rows['password'];
@@ -43,7 +43,7 @@ if ($new_password != $repeat_password) {
 }
 
 //Canviem per el nou
-$args = "UPDATE `users` SET `password`='$new_password' WHERE `id` = $user_id";
+$args = "UPDATE `users` SET `password`='$new_password' WHERE `id` LIKE '$user_id'";
 $sql = mysqli_query($conn, $args);
 
 die(json_encode(array('success'=> 1, 'message'=> 'Els canvis s\'han guardat correctament')));
