@@ -44,7 +44,7 @@ if ($_SESSION['rank'] == 'viewer') {
     for ($i = 0; $i < 12; $i++) {
 
         //Horas
-        $args = "SELECT SUM(horas) FROM `eventos` WHERE MONTH(`start`) = '$i' AND YEAR(`start`) = '2021'";
+        $args = "SELECT SUM(horas) FROM `eventos` WHERE `user_id` = '$user_id' AND MONTH(`start`) = '$i' AND YEAR(`start`) = '2021'";
         $sql = mysqli_query($conn, $args);
         $rows = mysqli_fetch_assoc($sql);
         $horas = $rows['SUM(horas)'];
