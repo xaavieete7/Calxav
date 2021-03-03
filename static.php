@@ -42,7 +42,7 @@ class NavBar {
         return $html;
     }
 
-    public function Sidebar($page) {
+    public function Sidebar($page, $user = "") {
 
         switch($page) {
             case "dashboard":
@@ -75,6 +75,7 @@ class NavBar {
         }
 
         $rank = $_SESSION['rank'];
+        $admin_level = $_SESSION['admin_level'];
         
         $html = '<div class="sidebar" data-color="danger" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">';
 
@@ -106,9 +107,13 @@ class NavBar {
                         $args = "SELECT `username` FROM users WHERE `rank` = 'user'";
                         $sql = mysqli_query($conn, $args);
 
-                        while ($rows=mysqli_fetch_assoc($sql)) { 
+                        while ($rows=mysqli_fetch_assoc($sql)) {
+                            $active = "";
+                            if ($user == $rows['username']) {
+                                $active = "sub-nav-inem-active";
+                            }
 
-                            $html .= '<li class="nav-item sub-nav-item">';
+                            $html .= '<li class="nav-item sub-nav-item '.$active.'">';
                                 $html .= '<a class="nav-link sub-nav-link" href="/calendari?cal='.$rows['username'].'">';
                                     $html .= '<p>'.ucfirst($rows['username']).'</p>';
                                 $html .= '</a>';
@@ -127,6 +132,13 @@ class NavBar {
 
                     }
 
+                    $html .= '<li class="nav-item '.$estadistiques.'">';
+                        $html .= '<a class="nav-link" href="/estadistiques">';
+                            $html .= '<i class="material-icons">query_stats</i>';
+                            $html .= '<p>Estadístiques</p>';
+                        $html .= '</a>';
+                    $html .= '</li>';
+
                     $html .= '<li class="nav-item '.$perfil.'">';
                         $html .= '<a class="nav-link" href="/perfil">';
                             $html .= '<i class="material-icons">person</i>';
@@ -134,14 +146,6 @@ class NavBar {
                         $html .= '</a>';
                     $html .= '</li>';
 
-                    if ($rank != 'viewer') {
-
-                        $html .= '<li class="nav-item sub-nav-item '.$estadistiques.'">';
-                            $html .= '<a class="nav-link sub-nav-link" href="/estadistiques">';
-                                $html .= '<p>Estadístiques</p>';
-                            $html .= '</a>';
-                        $html .= '</li>';
-                    }
                     $html .= '<li class="nav-item '.$equip.'">';
                         $html .= '<a class="nav-link" href="/equip">';
                             $html .= '<i class="material-icons">supervisor_account</i>';
@@ -166,12 +170,16 @@ class NavBar {
                             $html .= '<p>Seguretat</p>';
                         $html .= '</a>';
                     $html .= '</li>';
-                    $html .= '<li class="nav-item '.$administracio.'">';
-                        $html .= '<a class="nav-link" href="/admin">';
-                            $html .= '<i class="material-icons">admin_panel_settings</i>';
-                            $html .= '<p>Administració</p>';
-                        $html .= '</a>';
-                    $html .= '</li>';
+
+                    if ($admin_level > 0) {
+                        $html .= '<li class="nav-item ' . $administracio . '">';
+                                $html .= '<a class="nav-link" href="/admin">';
+                                $html .= '<i class="material-icons">admin_panel_settings</i>';
+                                $html .= '<p>Administració</p>';
+                            $html .= '</a>';
+                        $html .= '</li>';
+                    }
+
                     $html .= '<li class="nav-item active-pro">';
                         $html .= '<a class="nav-link" href="/login/logout.php">';
                             $html .= '<i class="material-icons">exit_to_app</i>';
@@ -224,6 +232,16 @@ class NavBar {
         $html .= '<script src="../assets/js/plugins/bootstrap-notify.js"></script>';
         //<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
         $html .= '<script src="../assets/js/material-dashboard.js?v=2.1.2" type="text/javascript"></script>';
+        //Scripts data table
+        $html .= '<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/dataTables.foundation.min.css"/>';
+        $html .= '<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.foundation.min.css"/>';
+        $html .= '<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css"/>';
+
+        $html .= '<script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>';
+        $html .= '<script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/dataTables.foundation.min.js"></script>';
+        $html .= '<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js"></script>';
+        $html .= '<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.7/js/responsive.foundation.min.js"></script>';
+
     
         return $html;
     }

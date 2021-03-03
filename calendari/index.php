@@ -53,7 +53,7 @@
 
     <div class="wrapper">
         <!-- Sidebar -->
-	    <?php printf($obj->Sidebar("calendari")); ?>
+	    <?php printf($obj->Sidebar("calendari", $_GET['cal'])); ?>
 
         <div class="main-panel">
 
@@ -315,7 +315,7 @@
 
                     $('#txtFecha').val(date.format());
 
-                    if (rank == 'user' || rank == 'admin') {
+                    if (rank == 'user') {
                         $("#ModalEventos").modal();
                         CustomColorChange();
                     } else {
@@ -351,7 +351,7 @@
                         $('#txtFecha').val(FechaHora[0]);
                         $('#txtHora').val(FechaHora[1]);
 
-                        if (rank == 'user' || rank == 'admin') {
+                        if (rank == 'user') {
                             $('#btnAgregar').prop("disabled",true);
                             $('#btnBorrar').prop("disabled",false);
                             $('#btnModificar').prop("disabled",false);

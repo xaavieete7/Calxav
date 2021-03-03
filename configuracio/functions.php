@@ -6,7 +6,7 @@ if ($_POST['action'] == 'form_calendar') { form_calendar_save(); }
 
 function form_contract_save(){
 
-    if ($_SESSION['rank'] == 'admin' || $_SESSION['rank'] == 'user') {
+    if ($_SESSION['rank'] == 'user') {
 
         if (empty($_POST['priceHour']) | empty($_POST['salary_target']) | empty($_POST['max_hours'])) {
             die(json_encode(array('success'=> 0, 'message' => 'No pots guardar un valor buit')));
@@ -36,7 +36,7 @@ function form_contract_save(){
 
 function form_calendar_save() {
 
-    if ($_SESSION['rank'] == 'admin' || $_SESSION['rank'] == 'user') {
+    if ($_SESSION['rank'] == 'user') {
 
         require_once('../static.php');
         $username = $_SESSION['username'];
@@ -51,7 +51,6 @@ function form_calendar_save() {
         die(json_encode(array('success'=> 1, 'message' => 'Els canvis s\'han guardat correctament')));
 
     } else {
-
         die(json_encode(array('success'=> 0, 'message' => 'Sembla que no tens suficients permisos')));
     }
 }
