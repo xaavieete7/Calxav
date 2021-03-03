@@ -6,9 +6,9 @@
     $objSecurity = new Security();
     $objSecurity->Logintime("administracio");
 
-    $rank = $_SESSION['rank'];
+    $admin_level = $_SESSION['admin_level'];
 
-    if ($rank != 'admin') {
+    if ($admin_level == 0) {
         header('Location: /404.php');
         exit;
     }

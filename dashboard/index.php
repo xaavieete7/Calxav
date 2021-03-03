@@ -11,7 +11,7 @@
 
     $rank = $_SESSION['rank'];
 
-    if ($rank == 'user' | $rank == 'admin') {
+    if ($rank == 'user') {
 
         $dia = date("j");
         $mes = date("n");
@@ -98,7 +98,7 @@
 
                     <?php 
 
-                        if ($rank == 'user' | $rank == 'admin') {
+                        if ($rank == 'user') {
                             $notificacion_rank = 'user';
                         } else {
                             $notificacion_rank = 'viewer';

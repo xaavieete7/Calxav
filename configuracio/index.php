@@ -8,7 +8,7 @@
 
     $rank = $_SESSION['rank'];
 
-    if ($rank != 'user' && $rank != 'admin') {
+    if ($rank != 'user') {
         header('Location: /404.php');
         exit;
     }
