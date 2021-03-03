@@ -132,6 +132,13 @@ class NavBar {
 
                     }
 
+                    $html .= '<li class="nav-item '.$estadistiques.'">';
+                        $html .= '<a class="nav-link" href="/estadistiques">';
+                            $html .= '<i class="material-icons">query_stats</i>';
+                            $html .= '<p>Estadístiques</p>';
+                        $html .= '</a>';
+                    $html .= '</li>';
+
                     $html .= '<li class="nav-item '.$perfil.'">';
                         $html .= '<a class="nav-link" href="/perfil">';
                             $html .= '<i class="material-icons">person</i>';
@@ -139,14 +146,6 @@ class NavBar {
                         $html .= '</a>';
                     $html .= '</li>';
 
-                    if ($rank != 'viewer') {
-
-                        $html .= '<li class="nav-item sub-nav-item '.$estadistiques.'">';
-                            $html .= '<a class="nav-link sub-nav-link" href="/estadistiques">';
-                                $html .= '<p>Estadístiques</p>';
-                            $html .= '</a>';
-                        $html .= '</li>';
-                    }
                     $html .= '<li class="nav-item '.$equip.'">';
                         $html .= '<a class="nav-link" href="/equip">';
                             $html .= '<i class="material-icons">supervisor_account</i>';

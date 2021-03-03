@@ -46,7 +46,6 @@
             "order": [[ 3, "asc" ]]
         } );
     } );
-
 </script>
 
 <body class="">
@@ -82,8 +81,55 @@
                                                 if ($_GET['user_id']) {
                                                     $user_id = $_GET['user_id'];
                                                 } else {
-                                                    echo "ulo";
-                                                    header('Location: /404.php');
+
+                                                    $mes = date("n");
+                                                    $any = date("o");
+
+                                                    $args = "SELECT * FROM `users` WHERE `rank` LIKE 'user'";
+                                                    $sql = mysqli_query($conn, $args);
+
+                                                    $html = '<div class="row justify-center">';
+
+                                                    while ($rows = mysqli_fetch_assoc($sql)) {
+
+                                                        //Hores aquest mes
+                                                        $user_idDB = $rows['id'];
+                                                        $username = $rows['username'];
+                                                        $args = "SELECT SUM(`salary`) FROM `eventos` WHERE `user_id` LIKE '$user_idDB' AND MONTH(`start`) = '$mes' AND YEAR(`start`) = '$any'";
+                                                        $sql_html = mysqli_query($conn, $args);
+
+                                                        while ($rows_html = mysqli_fetch_assoc($sql_html)) {
+
+                                                            $salary_mes = $rows_html['SUM(`salary`)'];
+                                                            if (empty($salary_mes)){
+                                                                $salary_mes = 0;
+                                                            }
+
+                                                            $html .= '<div class="col-lg-4 col-md-6 col-sm-6">';
+                                                                $html .= '<div class="card card-stats">';
+                                                                    $html .= '<div class="card-header card-header-danger card-header-icon">';
+                                                                        $html .= '<div class="card-icon">';
+                                                                            $html .= '<i class="material-icons">person</i>';
+                                                                        $html .= '</div>';
+                                                                            $html .= '<p class="card-category">'.ucfirst($username).'</p>';
+                                                                            $html .= '<h2 class="card-title">'.$salary_mes.'';
+                                                                                $html .= '<small>€</small>';
+                                                                            $html .= '</h2>';
+                                                                        $html .= '</div>';
+                                                                        $html .= '<div class="card-footer">';
+                                                                            $html .= '<div class="stats"><a href="/estadistiques/?user_id='.$user_idDB.'" class="text-danger">Veure estadístiques</a></div>';
+                                                                    $html .= '</div>';
+                                                                $html .= '</div>';
+                                                            $html .= '</div>';
+
+                                                        }
+
+
+                                                    }
+
+                                                    $html .= '</div>';
+
+                                                    print($html);
                                                     exit;
                                                 }
 
