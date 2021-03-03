@@ -80,48 +80,52 @@
                                     <h4 class="card-title ">Administració</h4>
                                 </div>
                                 <div class="card-body">
-                                    <h4 class="mt-2">Notifiacions:<hr></h4>
-                                    <form id="notifiacation_form">
-                                        <input type="hidden" name="action" value="notifications">
-                                        <div class="form-group mt-5">
-                                            <label>Títol:</label>
-                                            <input type="text" name="title" class="form-control"> 
-                                        </div>
 
-                                        <div class="form-row mt-1">
-                                            <div class="col-md-6 mb-4">
-                                                <label>Tipo:</label>
-                                                <select name="type" class="form-control">
-                                                    <option value="">---</option>
-                                                    <option value="warning">Warning</option>
-                                                    <option value="danger">Danger</option>
-                                                    <option value="info">Info</option>
-                                                    <option value="success">Success</option>
-                                                </select>
+                                    <?php if ($admin_level > 0) { ?>
+
+                                        <h4 class="mt-2">Notifiacions:<hr></h4>
+                                        <form id="notifiacation_form">
+                                            <input type="hidden" name="action" value="notifications">
+                                            <div class="form-group mt-5">
+                                                <label>Títol:</label>
+                                                <input type="text" name="title" class="form-control">
                                             </div>
-                                            <div class="col-md-6 mb-4">
-                                                <label>Visibilitat:</label>
-                                                <select name="visibility" class="form-control">
-                                                    <option value="">---</option>
-                                                    <option value="user">Users</option>
-                                                    <option value="viewer">Viewers</option>
-                                                    <option value="all">All</option>
-                                                </select>
+
+                                            <div class="form-row mt-1">
+                                                <div class="col-md-6 mb-4">
+                                                    <label>Tipo:</label>
+                                                    <select name="type" class="form-control">
+                                                        <option value="">---</option>
+                                                        <option value="warning">Warning</option>
+                                                        <option value="danger">Danger</option>
+                                                        <option value="info">Info</option>
+                                                        <option value="success">Success</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6 mb-4">
+                                                    <label>Visibilitat:</label>
+                                                    <select name="visibility" class="form-control">
+                                                        <option value="">---</option>
+                                                        <option value="user">Users</option>
+                                                        <option value="viewer">Viewers</option>
+                                                        <option value="all">All</option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div class="form-group mt-4 mb-4">
-                                            <label>Contingut:</label>
-                                            <textarea class="form-control" name="content" rows="3"></textarea>
-                                        </div>
+                                            <div class="form-group mt-4 mb-4">
+                                                <label>Contingut:</label>
+                                                <textarea class="form-control" name="content" rows="3"></textarea>
+                                            </div>
 
-                                        <div class="form-group col-md-12 text-right">
-                                            <button type="button" id="save_notification_form" class="btn btn-danger boton">Guardar</button>
-                                        </div>
-                                    </form>
-                                    <hr>
+                                            <div class="form-group col-md-12 text-right">
+                                                <button type="button" id="save_notification_form" class="btn btn-danger boton">Guardar</button>
+                                            </div>
+                                        </form>
+                                        <hr>
+                                        <div id="notificacion_table" class="table-responsive"></div>
 
-                                    <div id="notificacion_table" class="table-responsive"></div>
+                                    <?php } ?>
                                 <div>
                             <div>
                         </div>

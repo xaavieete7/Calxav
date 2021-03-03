@@ -75,6 +75,7 @@ class NavBar {
         }
 
         $rank = $_SESSION['rank'];
+        $admin_level = $_SESSION['admin_level'];
         
         $html = '<div class="sidebar" data-color="danger" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">';
 
@@ -166,12 +167,16 @@ class NavBar {
                             $html .= '<p>Seguretat</p>';
                         $html .= '</a>';
                     $html .= '</li>';
-                    $html .= '<li class="nav-item '.$administracio.'">';
-                        $html .= '<a class="nav-link" href="/admin">';
-                            $html .= '<i class="material-icons">admin_panel_settings</i>';
-                            $html .= '<p>Administració</p>';
-                        $html .= '</a>';
-                    $html .= '</li>';
+
+                    if ($admin_level > 0) {
+                        $html .= '<li class="nav-item ' . $administracio . '">';
+                                $html .= '<a class="nav-link" href="/admin">';
+                                $html .= '<i class="material-icons">admin_panel_settings</i>';
+                                $html .= '<p>Administració</p>';
+                            $html .= '</a>';
+                        $html .= '</li>';
+                    }
+
                     $html .= '<li class="nav-item active-pro">';
                         $html .= '<a class="nav-link" href="/login/logout.php">';
                             $html .= '<i class="material-icons">exit_to_app</i>';
