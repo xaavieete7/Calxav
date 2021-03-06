@@ -20,6 +20,7 @@ if (!empty($_POST)) {
         $_SESSION['firstname'] = $rows['firstname'];
         
         $_SESSION['rank'] = $rows['rank'];
+        $_SESSION['admin_level'] = $rows['admin_level'];
         $_SESSION["login_time"] = time();
         $_SESSION['last_session'] = date("d-m-Y H:i:s");
         $last_session = $_SESSION['last_session'];

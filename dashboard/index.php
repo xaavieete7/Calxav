@@ -11,7 +11,7 @@
 
     $rank = $_SESSION['rank'];
 
-    if ($rank == 'user' | $rank == 'admin') {
+    if ($rank == 'user') {
 
         $dia = date("j");
         $mes = date("n");
@@ -67,6 +67,26 @@
         //Hores restants
         $hores_restants = $hores_limit - $hores_total;
 
+        //Salari mes passat
+        $mes_passat = $mes - 1;
+        $args = "SELECT SUM(`salary`) FROM `eventos` WHERE `user_id` LIKE '$user_id' AND MONTH(`start`) = '$mes_passat' AND YEAR(`start`) = '$any'";
+        $sql = mysqli_query($conn, $args);
+        $rows = mysqli_fetch_assoc($sql);
+        $salary_old = $rows['SUM(`salary`)'];
+        if (empty($salary_old)){
+            $salary_old = 0;
+        }
+
+        //Salari aquest mes
+        $args = "SELECT SUM(`salary`) FROM `eventos` WHERE `user_id` LIKE '$user_id' AND MONTH(`start`) = '$mes' AND YEAR(`start`) = '$any'";
+        $sql = mysqli_query($conn, $args);
+        $rows = mysqli_fetch_assoc($sql);
+        $salary = $rows['SUM(`salary`)'];
+        if (empty($salary)){
+            $salary = 0;
+        }
+
+
     }
 
 ?>
@@ -98,7 +118,7 @@
 
                     <?php 
 
-                        if ($rank == 'user' | $rank == 'admin') {
+                        if ($rank == 'user') {
                             $notificacion_rank = 'user';
                         } else {
                             $notificacion_rank = 'viewer';
@@ -204,29 +224,15 @@
                         <div class="row">
 
                             <div class="col-md-4">
-                                <div class="card card-chart">
-                                    <div class="card-header card-header-danger">
-                                        <div class="ct-chart" id="dailySalesChart"></div>
-                                    </div>
-                                    <div class="card-body">
-                                        <h4 class="card-title">Salari mes passat</h4>
-                                        <p class="card-category">
-                                        T'has quedat a un <span class="text-success"> 55% </span> del teu objectiu.</p>
-                                    </div>
-                                    <div class="card-footer">
-                                        <div class="stats"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="card card-chart">
-                                    <div class="card-header card-header-danger">
-                                        <div class="ct-chart" id="websiteViewsChart"></div>
-                                    </div>
-                                    <div class="card-body">
-                                        <h4 class="card-title">Salari</h4>
-                                        <p class="card-category">Estas a Xh. de complir el teu objectiu</p>
+                                <div class="card card-stats">
+                                    <div class="card-header card-header-danger card-header-icon">
+                                        <div class="card-icon">
+                                            <i class="material-icons">account_balance</i>
+                                        </div>
+                                        <p class="card-category">Salari mes passat</p>
+                                        <h2 class="card-title"><?php echo $salary_old; ?>
+                                            <small>€</small>
+                                        </h2>
                                     </div>
                                     <div class="card-footer">
                                         <div class="stats"></div>
@@ -235,13 +241,32 @@
                             </div>
 
                             <div class="col-md-4">
-                                <div class="card card-chart">
-                                    <div class="card-header card-header-danger">
-                                        <div class="ct-chart" id="completedTasksChart"></div>
+                                <div class="card card-stats">
+                                    <div class="card-header card-header-danger card-header-icon">
+                                        <div class="card-icon">
+                                            <i class="material-icons">euro_symbol</i>
+                                        </div>
+                                        <p class="card-category">Salari aquest mes</p>
+                                        <h2 class="card-title"><?php echo $salary; ?>
+                                            <small>€</small>
+                                        </h2>
                                     </div>
-                                    <div class="card-body">
-                                        <h4 class="card-title">Salari mes que ve</h4>
-                                        <p class="card-category">Conseguiras el teu objectiu?</p>
+                                    <div class="card-footer">
+                                        <div class="stats"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="card card-stats">
+                                    <div class="card-header card-header-danger card-header-icon">
+                                        <div class="card-icon">
+                                            <i class="material-icons">account_balance_wallet</i>
+                                        </div>
+                                        <p class="card-category">Salari el mes que be</p>
+                                        <h2 class="card-title">???
+                                            <small>€</small>
+                                        </h2>
                                     </div>
                                     <div class="card-footer">
                                         <div class="stats"></div>
@@ -292,6 +317,16 @@
                                 if (empty($hores_limit)){
                                     $hores_limit = 0;
                                 }
+
+                                //Preu hora
+                                $args = "SELECT `priceHour` FROM `users` WHERE `id` LIKE '$user_id'";
+                                $sql = mysqli_query($conn, $args);
+                                $rows = mysqli_fetch_assoc($sql);
+                                $preu_hora = $rows['priceHour'];
+                                if (empty($preu_hora)){
+                                    $preu_hora = 0;
+                                }
+
 
                                 //Hores totals
                                 $args = "SELECT SUM(`horas`) FROM `eventos` WHERE `user_id` LIKE '$user_id'";
@@ -356,10 +391,10 @@
                                         $html .= '<div class="card card-stats">';
                                             $html .= '<div class="card-header card-header-danger card-header-icon">';
                                                 $html .= '<div class="card-icon">';
-                                                    $html .= '<i class="material-icons">alarm</i>';
+                                                    $html .= '<i class="material-icons">euro_symbol</i>';
                                                 $html .= '</div>';
-                                                $html .= '<p class="card-category">Hores totals</p>';
-                                                $html .= '<h2 class="card-title">'. $hores_total .'';
+                                                $html .= '<p class="card-category">Preu hora</p>';
+                                                $html .= '<h2 class="card-title">'. $preu_hora .'';
                                                     $html .= '<small>h</small>';
                                                 $html .= '</h2>';
                                             $html .= '</div>';

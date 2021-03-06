@@ -6,23 +6,47 @@
     $objSecurity = new Security();
     $objSecurity->Logintime("estadistiques");
 
+    $objDB = new DatabaseConn();
+    $conn = $objDB->Connection();
+
     $rank = $_SESSION['rank'];
 
-    if ($rank == 'viewer') {
-        header('Location: /404.php');
-        exit;
-    }
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="">
 
 <head>
 
     <!-- Header -->
 	<?php printf($obj->Head()); ?>
 
+    <link rel="stylesheet" href="../assets/css/stats.css">
+
 </head>
+
+<?php
+
+    if ($rank == 'viewer') {
+        $user_id = $_GET['user_id'];
+        $args = "SELECT `username` FROM `users` WHERE `id` = '$user_id'";
+        $sql = mysqli_query($conn, $args);
+        $rows = mysqli_fetch_assoc($sql);
+        $username = $rows['username'];
+    }
+
+?>
+
+<script>
+    $(document).ready(function() {
+        $('#table').DataTable( {
+            "paging":   false,
+            "ordering": true,
+            "info":     false,
+            "order": [[ 3, "asc" ]]
+        } );
+    } );
+</script>
 
 <body class="">
 
@@ -41,26 +65,84 @@
                         <div class="col-md-10 card-container">
                             <div class="card">
                                 <div class="card-header card-header-danger">
-                                    <h4 class="card-title ">Estadístiques</h4>
+                                    <h4 class="card-title ">Estadístiques <?php echo ucfirst($username); ?></h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
 
                                         <?php
-                                            $objDB = new DatabaseConn();
-                                            $conn = $objDB->Connection();
 
                                             $objTable = new TableArray();
                                             $meses = $objTable->ArrayMonth();
                                             $user_id = $_SESSION["user_id"];
 
-                                            $html = '<table class="table text-center">';
+                                            if ($rank == 'viewer') {
+
+                                                if ($_GET['user_id']) {
+                                                    $user_id = $_GET['user_id'];
+                                                } else {
+
+                                                    $mes = date("n");
+                                                    $any = date("o");
+
+                                                    $args = "SELECT * FROM `users` WHERE `rank` LIKE 'user'";
+                                                    $sql = mysqli_query($conn, $args);
+
+                                                    $html = '<div class="row justify-center">';
+
+                                                    while ($rows = mysqli_fetch_assoc($sql)) {
+
+                                                        //Hores aquest mes
+                                                        $user_idDB = $rows['id'];
+                                                        $username = $rows['username'];
+                                                        $args = "SELECT SUM(`salary`) FROM `eventos` WHERE `user_id` LIKE '$user_idDB' AND MONTH(`start`) = '$mes' AND YEAR(`start`) = '$any'";
+                                                        $sql_html = mysqli_query($conn, $args);
+
+                                                        while ($rows_html = mysqli_fetch_assoc($sql_html)) {
+
+                                                            $salary_mes = $rows_html['SUM(`salary`)'];
+                                                            if (empty($salary_mes)){
+                                                                $salary_mes = 0;
+                                                            }
+
+                                                            $html .= '<div class="col-lg-4 col-md-6 col-sm-6">';
+                                                                $html .= '<div class="card card-stats">';
+                                                                    $html .= '<div class="card-header card-header-danger card-header-icon">';
+                                                                        $html .= '<div class="card-icon">';
+                                                                            $html .= '<i class="material-icons">person</i>';
+                                                                        $html .= '</div>';
+                                                                            $html .= '<p class="card-category">'.ucfirst($username).'</p>';
+                                                                            $html .= '<h2 class="card-title">'.$salary_mes.'';
+                                                                                $html .= '<small>€</small>';
+                                                                            $html .= '</h2>';
+                                                                        $html .= '</div>';
+                                                                        $html .= '<div class="card-footer">';
+                                                                            $html .= '<div class="stats"><a href="/estadistiques/?user_id='.$user_idDB.'" class="text-danger">Veure estadístiques</a></div>';
+                                                                    $html .= '</div>';
+                                                                $html .= '</div>';
+                                                            $html .= '</div>';
+
+                                                        }
+
+
+                                                    }
+
+                                                    $html .= '</div>';
+
+                                                    print($html);
+                                                    exit;
+                                                }
+
+                                            }
+
+                                            $html = '<table id="table" class="table text-center stripe hover display ">';
 
                                                 $html .= '<thead>';
                                                     $html .= '<tr>';
                                                         $html .= '<th>Mes</th>';
                                                         $html .= '<th>Hores</th>';
                                                         $html .= '<th>Salari</th>';
+                                                        $html .= '<th>Any</th>';
                                                     $html .= '</tr>';
                                                 $html .= '</thead>';
 
@@ -85,6 +167,7 @@
                                                                 $html .= '<td>' . $mes .'</td>';
                                                                 $html .= '<td>' . $horas . 'h</td>';
                                                                 $html .= '<td>' . $salari . '€</td>';
+                                                                $html .= '<td>' . $num[1] .'</td>';
                                                             $html .= '</tr>';
                                                         }
                                                     }
@@ -103,11 +186,14 @@
 
                                                 $salari_total = $rows['SUM(salary)'];
 
-                                                $html .= '<tr>';
-                                                    $html .= '<td>TOTAL</td>';
-                                                    $html .= '<td>' . $horas_totals . 'h</td>';
-                                                    $html .= '<td>' . $salari_total . '€</td>';
-                                                $html .= '</tr>';
+                                                $html .= '<tfoot>';
+                                                    $html .= '<tr>';
+                                                        $html .= '<th>TOTAL</th>';
+                                                        $html .= '<th>' . $horas_totals . 'h</th>';
+                                                        $html .= '<th>' . $salari_total . '€</th>';
+                                                        $html .= '<th></th>';
+                                                    $html .= '</tr>';
+                                                $html .= '</tfoot>';
 
                                             $html .= '<table>';
 
