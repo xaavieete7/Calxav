@@ -80,59 +80,114 @@
                                     <h4 class="card-title ">Administració</h4>
                                 </div>
                                 <div class="card-body">
-                                    <h4 class="mt-2">Notifiacions:<hr></h4>
-                                    <form id="notifiacation_form">
-                                        <input type="hidden" name="action" value="notifications">
-                                        <div class="form-group mt-5">
-                                            <label>Títol:</label>
-                                            <input type="text" name="title" class="form-control"> 
+
+                                <h4 class="mt-2">Creació d'usuaris<hr></h4>
+                                    
+                                        
+                                <form id="create_user" class="new_user">
+                                    <input type="hidden" name="action" value="create_user">
+                                        <div class="form-row mt-1">
+                                            <div class="col-md-6 mb-4">
+                                                <label>Nom:</label>
+                                                <input type="text" class="form-control" name="name" placeholder="John Smith">
+                                            </div>
+                                            <div class="col-md-6 mb-4">
+                                                <label>Tipus d'usuari:</label>
+                                                <select name="rank" class="form-control">
+                                                    <option value="user" selected>Usuari</option>
+                                                    <option value="viewer">Encarregat</option>
+                                                </select>
+                                            </div>
                                         </div>
 
                                         <div class="form-row mt-1">
                                             <div class="col-md-6 mb-4">
-                                                <label>Tipo:</label>
-                                                <select name="type" class="form-control">
-                                                    <option value="">---</option>
-                                                    <option value="warning">Warning</option>
-                                                    <option value="danger">Danger</option>
-                                                    <option value="info">Info</option>
-                                                    <option value="success">Success</option>
-                                                </select>
+                                                <label>Nom d'usuari:</label>
+                                                <input type="text" class="form-control" name="username">
                                             </div>
                                             <div class="col-md-6 mb-4">
-                                                <label>Visibilitat:</label>
-                                                <select name="visibility" class="form-control">
-                                                    <option value="">---</option>
-                                                    <option value="user">Users</option>
-                                                    <option value="viewer">Viewers</option>
-                                                    <option value="all">All</option>
-                                                </select>
+                                                <label>Contrasenya:</label>
+                                                <div class="input-group" id="show_hide_password">
+                                                    <input class="form-control" type="password" name="password">
+                                                        <div class="input-group-addon">
+                                                            <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                                                        </div>
+                                                    </div>
+                                                <div><a class="generate_password text-right">Generar contraseña</a></div>
                                             </div>
                                         </div>
 
-                                        <div class="form-group mt-4 mb-4">
-                                            <label>Contingut:</label>
-                                            <textarea class="form-control" name="content" rows="3"></textarea>
+                                        <div class="form-row mt-1 is_user">
+                                            <div class="col-md-6 mb-4">
+                                                <label>Preu hora:</label>
+                                                <input type="number" class="form-control " name="hour_price" placeholder="5">
+                                                <span class="d-none error">Introdueix el preu hora</span>
+                                            </div>
+                                            <div class="col-md-6 mb-4">
+                                                <label>Hores del contracte:</label>
+                                                <input type="number" class="form-control " name="hour_total" placeholder="300">
+                                                <span class="d-none error">Introdueix les hores totals</span> 
+                                            </div>
                                         </div>
+                                                
+                                        <div class="form-group col-md-12 text-right mb-5 mt-3">
+                                            <button type="button" id="create_new_user" class="btn btn-danger boton">Crear usuari</button>
+                                        </div>  
+                                </form>
 
-                                        <div class="form-group col-md-12 text-right">
-                                            <button type="button" id="save_notification_form" class="btn btn-danger boton">Guardar</button>
+                                <!-- Notifications start -->
+                                <h4 class="mt-2">Notifiacions:<hr></h4>
+                                <form id="notifiacation_form">
+                                    <input type="hidden" name="action" value="notifications">
+                                    <div class="form-group mt-5">
+                                        <label>Títol:</label>
+                                        <input type="text" name="title" class="form-control"> 
+                                    </div>
+
+                                    <div class="form-row mt-1">
+                                        <div class="col-md-6 mb-4">
+                                            <label>Tipo:</label>
+                                            <select name="type" class="form-control">
+                                                <option value="">---</option>
+                                                <option value="warning">Warning</option>
+                                                <option value="danger">Danger</option>
+                                                <option value="info">Info</option>
+                                                <option value="success">Success</option>
+                                            </select>
                                         </div>
-                                    </form>
-                                    <hr>
+                                        <div class="col-md-6 mb-4">
+                                            <label>Visibilitat:</label>
+                                            <select name="visibility" class="form-control">
+                                                <option value="">---</option>
+                                                <option value="user">Users</option>
+                                                <option value="viewer">Viewers</option>
+                                                <option value="all">All</option>
+                                            </select>
+                                        </div>
+                                    </div>
 
-                                    <div id="notificacion_table" class="table-responsive"></div>
-                                <div>
+                                    <div class="form-group mt-4 mb-4">
+                                        <label>Contingut:</label>
+                                        <textarea class="form-control" name="content" rows="3"></textarea>
+                                    </div>
+
+                                    <div class="form-group col-md-12 text-right">
+                                        <button type="button" id="save_notification_form" class="btn btn-danger boton">Guardar</button>
+                                    </div>
+                                </form>
+                                <hr>
+
+                                <div id="notificacion_table" class="table-responsive"></div>
                             <div>
-                        </div>
+                        <div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Footer src -->
-    <?php printf($obj->Footerlinks()); ?>
+<!-- Footer src -->
+<?php printf($obj->Footerlinks()); ?>
 
 </body>
 
