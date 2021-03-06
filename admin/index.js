@@ -2,8 +2,8 @@
 $(document).ready( function(){ 
 
     var hasWritten = false;
-    var user_inputs = document.getElementsByClassName("is_user");
-    $('select[name="rank"]').on('change', function() {
+
+    $('select[name="rank"]').on('change', function() { //on change for the user rank select we display different inputs
         if($(this).val() == "user") {
             $(user_inputs).each(function() {
                 $(this).removeClass('d-none');
@@ -11,21 +11,22 @@ $(document).ready( function(){
         } else {
             $('input[name="hour_price"]').val("");
             $('input[name="hour_total"').val("");
-            $(user_inputs).each(function() {
-                $(this).addClass('d-none');
-                
-            });
+            $('div.is_user').addClass('d-none');
         }
     });
 
+
+    //password generator
     $('.generate_password').on('click', function() {
          $('input[name="password"]').val(Math.random().toString(36).slice(-8));
          $(this).text("Contraseña generada");
          setTimeout(function() {$('.generate_password').text("Generar Contraseña")}, 3000);
     });
 
-    $("#show_hide_password a").on('click', function(event) {
-        event.preventDefault();
+
+    //Change password visibility depending on "eye" icon state
+    $("#show_hide_password a").on('click', function(e) {
+        e.preventDefault();
         if($('#show_hide_password input').attr("type") == "text"){
             $('#show_hide_password input').attr('type', 'password');
             $('#show_hide_password i').addClass( "fa-eye-slash" );
@@ -37,6 +38,7 @@ $(document).ready( function(){
         }
     });
 
+    //submit create user / viewer form
     $('#create_new_user').click(function(e) {
         e.preventDefault();
         var form = $('#create_user').serialize();
@@ -45,12 +47,14 @@ $(document).ready( function(){
        
     });
 
+    //on keyup user name if username field hasn't been modified it copies the content to that input
     $('input[name="name"]').on('keyup', function() {
         if (! hasWritten) {
             $('input[name="username"]').val($(this).val().toLowerCase());
         }
     });
 
+    //in case user has written inside this input, we change the boolean var hasWritten to true
     $('input[name="username"]').on('keyup', function() {
         hasWritten = true;
     });
@@ -94,10 +98,7 @@ $(document).ready( function(){
                         showConfirmButton: false
                     });
 
-                    $("input[name='title']").val("");
-                    $("textarea[name='content']").val("");
-                    $("select[name='type']").val("");
-                    $("select[name='visibility']").val("");
+                    $("input.form-control").val("");
                     
                 } else {
 
