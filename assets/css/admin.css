@@ -7,3 +7,17 @@
     font-size: 27px;
     color: #f44336;
 }
+
+a .fa-eye-slash, a .fa-eye  {
+    color: black;
+}
+
+a .fa-eye-slash:hover, a .fa-eye:hover {
+    color:#333;
+}
+a.generate_password:not([href]):not([tabindex]) {
+    color: #f44336;
+}
+.generate_password:hover {
+    cursor:pointer;
+}
