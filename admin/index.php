@@ -169,6 +169,7 @@
                                                         <option value="all">All</option>
                                                     </select>
                                                 </div>
+                                            </div>
 
                                                 <div class="form-group mt-4 mb-4">
                                                     <label>Contingut:</label>
@@ -178,6 +179,7 @@
                                                 <div class="form-group col-md-12 text-right">
                                                     <button type="button" id="save_notification_form" class="btn btn-danger boton">Guardar</button>
                                                 </div>
+                                            </div>
                                             </form>
                                             <hr>
                                             <div id="notificacion_table" class="table-responsive"></div>
