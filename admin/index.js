@@ -5,9 +5,7 @@ $(document).ready( function(){
 
     $('select[name="rank"]').on('change', function() { //on change for the user rank select we display different inputs
         if($(this).val() == "user") {
-            $(user_inputs).each(function() {
-                $(this).removeClass('d-none');
-            });
+                $('div.is_user').removeClass('d-none');
         } else {
             $('input[name="hour_price"]').val("");
             $('input[name="hour_total"').val("");
@@ -98,7 +96,7 @@ $(document).ready( function(){
                         showConfirmButton: false
                     });
 
-                    $("input.form-control").val("");
+                    $(".form-control").val("");
                     
                 } else {
 

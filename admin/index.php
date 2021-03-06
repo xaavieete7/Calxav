@@ -163,7 +163,7 @@
                                                 <div class="col-md-6 mb-4">
                                                     <label>Visibilitat:</label>
                                                     <select name="visibility" class="form-control">
-                                                        <option value="++">---</option>
+                                                        <option value="">---</option>
                                                         <option value="user">Users</option>
                                                         <option value="viewer">Viewers</option>
                                                         <option value="all">All</option>

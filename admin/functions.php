@@ -59,7 +59,7 @@ function create_user() {
         die(json_encode(array('success'=> 1, 'message' => "L'usuari ha sigut creat satisfactoriament")));   
     }
 
-    die(json_encode(array('success'=> 0, 'message' => "No s'ha pogut crear l'usuari, torna a intentar-ho")));
+    die(json_encode(array('success'=> 0, 'message' => "Selecciona un tipus d'usuari")));
 
     
 }
