@@ -2,7 +2,6 @@
 $(document).ready( function(){ 
 
     var hasWritten = false;
-    console.log($('select[name = "rank"]').length);
     var user_inputs = document.getElementsByClassName("is_user");
     $('select[name="rank"]').on('change', function() {
         if($(this).val() == "user") {

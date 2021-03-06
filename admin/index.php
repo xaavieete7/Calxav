@@ -80,7 +80,7 @@
                                     <h4 class="card-title ">Administració</h4>
                                 </div>
                                 <div class="card-body">
-                                <?php ($admin_level > 1) { ?>
+                                <?php if ($admin_level > 1) { ?> 
 
                                     <h4 class="mt-2">Creació d'usuaris<hr></h4>
                                         
