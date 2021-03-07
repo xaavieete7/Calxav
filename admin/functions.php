@@ -103,9 +103,10 @@ function edit_user() {
         WHERE id = ".$id;
         $sql = mysqli_query($conn, $args);
 
-        die(json_encode(array('success'=> 1, 'message' => "L'usuari ha sigut modificat")));
+        die(json_encode(array('success'=> 1)));
 
     }
+    die(json_encode(array('success'=> 0)));
 
 }
 

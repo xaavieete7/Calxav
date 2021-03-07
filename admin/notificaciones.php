@@ -38,12 +38,6 @@ $html .= '</table>';
     $html = "";
 }
     
-
-
-
-
-
-
 print($html);
 
 ?>
