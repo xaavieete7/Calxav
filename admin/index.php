@@ -31,6 +31,7 @@
 
     $(document).ready( function(){
         $('#notificacion_table').load('/admin/notifiaciones.php');
+        $('#user_table').load('/admin/user_table.php');
     });
 
     function removeEvent( id ) {
@@ -55,6 +56,83 @@
                 $('#notificacion_table').load('/admin/notifiaciones.php');
             }
         });
+    }
+
+    function removeUser(id, name) {
+        Swal.fire({
+            title: '<strong>Borrar usuari</strong>',
+            icon: 'info',
+            html:
+                'Estas segur de que vols borrar l\'usuari ' + name +
+                '? <br> ' +
+                'Aquesta acció es permanent i no es podràn recuperar les dades de l\'usuari.',
+            showCloseButton: true,
+            showCancelButton: true,
+            confirmButtonColor: '#F44336',
+            cancelButtonColor: '#696969',
+            focusConfirm: false,
+            confirmButtonText:
+                'Borrar usuari',
+            cancelButtonText:
+                'Cancelar',
+        }).then((result) => {
+            
+            if (result.value) {
+                $.ajax({
+                    type:"POST",
+                    url: 'functions.php',
+                    data: {'id': id, 'action': "remove_user"},
+                    success: function(data){
+                        data = JSON.parse(data);
+                        //Display success message
+                        if (data.success == 1) {
+                            Swal.fire(
+                            'Esborrat!',
+                            'L\'usuari ' + name + ' s\'ha esborrat satisfactoriament',
+                            'success'
+                            )
+                        } else {
+                            Swal.fire(
+                            'Error!',
+                            'L\'usuari ' + name + ' no s\'ha pogut esborrat, torna a intentar-ho en una estona',
+                            'error'
+                            )
+                        }
+                        
+                        
+                        $('#user_table').load('/admin/user_table.php');
+                    }
+                });
+            }
+        })
+    }
+
+    function editUser(id, name,) {
+        var hour_total = $('.'+id+'_hour_total').val();
+        var hour_price = $('.'+id+'_hour_price').val();
+
+        $.ajax({
+            type:"POST",
+            url: 'functions.php',
+            data: {'id': id, 'action': "edit_user", 'hour_total': hour_total, 'hour_price': hour_price },
+            success: function(data){
+                data = JSON.parse(data);
+                if (data.success == 1) {
+                    Swal.fire(
+                    'Modificat!',
+                    'L\'usuari ' + name + ' s\'ha modificat satisfactoriament',
+                    'success'
+                    )
+                } else {
+                    Swal.fire(
+                    'Modificat!',
+                    'L\'usuari ' + name + ' no s\'ha pogut modificar, tora a intentar-ho en una estona',
+                    'error'
+                )
+                }
+                
+            }
+        });    
     }
 
 </script>
@@ -135,6 +213,7 @@
                                                 <button type="button" id="create_new_user" class="btn btn-danger boton">Crear usuari</button>
                                             </div>  
                                     </form>
+                                    <div id="user_table" class="table-responsive"></div>
                                 
                                 <?php } ?>
 

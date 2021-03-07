@@ -1,7 +1,6 @@
 
 $(document).ready( function(){ 
 
-    var hasWritten = false;
 
     $('select[name="rank"]').on('change', function() { //on change for the user rank select we display different inputs
         if($(this).val() == "user") {
@@ -47,20 +46,8 @@ $(document).ready( function(){
 
     //on keyup user name if username field hasn't been modified it copies the content to that input
     $('input[name="name"]').on('keyup', function() {
-        if (! hasWritten) {
             $('input[name="username"]').val($(this).val().toLowerCase());
-        }
     });
-
-    //in case user has written inside this input, we change the boolean var hasWritten to true
-    $('input[name="username"]').on('keyup', function() {
-        hasWritten = true;
-    });
-
-
-
-
-
 
     $( "#save_notification_form" ).click(function(e) {
 
@@ -83,6 +70,7 @@ $(document).ready( function(){
                 if (data.success) {
 
                     $('#notificacion_table').load('/admin/notifiaciones.php');
+                    $('#user_table').load('/admin/user_table.php');
 
                     //Display success message
                     Swal.fire({
@@ -96,7 +84,15 @@ $(document).ready( function(){
                         showConfirmButton: false
                     });
 
-                    $(".form-control").val("");
+                    $('input[name="name"]').val("");
+                    $('select[name="rank"]').val("");
+                    $('input[name="username"]').val("");
+                    $('input[name="password"]').val("");
+                    $('input[name="hour_price"]').val("");
+                    $('input[name="hour_total"]').val("");
+                    $('select[name="type"]').val("");
+                    $('select[name="visibility"]').val("");
+                    $('textarea[name="content"]').val("");
                     
                 } else {
 

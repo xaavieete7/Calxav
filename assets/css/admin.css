@@ -21,3 +21,7 @@ a.generate_password:not([href]):not([tabindex]) {
 .generate_password:hover {
     cursor:pointer;
 }
+
+.swal2-close:focus {
+    outline: 0;
+}

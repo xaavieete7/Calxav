@@ -13,6 +13,14 @@ switch($_POST['action']) {
     case "create_user":
         create_user();
         break;
+    
+    case "remove_user":
+        remove_user();
+        break;
+
+    case "edit_user":
+        edit_user();
+        break;
 }
 
 
@@ -63,6 +71,44 @@ function create_user() {
 
     
 }
+
+function remove_user() {
+
+    if ($_POST['id']) {
+        $id = $_POST['id'];
+
+        $objDB = new DatabaseConn();
+        $conn = $objDB->Connection();
+        $args = "DELETE FROM `users` WHERE id=".$id;
+        $sql = mysqli_query($conn, $args);
+        $args = "DELETE FROM `eventos` WHERE id=".$id;
+        $sql = mysqli_query($conn, $args);
+    
+        die(json_encode(array('success'=> 1)));
+    
+    } 
+        die(json_encode(array('success'=> 0)));
+}
+
+function edit_user() {
+    if ($_POST['id']) {
+        $id = $_POST['id'];
+        $hour_price = $_POST['hour_price'];
+        $hour_total = $_POST['hour_total'];
+
+        $objDB = new DatabaseConn();
+        $conn = $objDB->Connection();
+        $args = "UPDATE `users`
+        SET `priceHour` = $hour_price, `max_hours`= $hour_total
+        WHERE id = ".$id;
+        $sql = mysqli_query($conn, $args);
+
+        die(json_encode(array('success'=> 1, 'message' => "L'usuari ha sigut modificat")));
+
+    }
+
+}
+
 
 function save_notificaions() {
 
