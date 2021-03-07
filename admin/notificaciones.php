@@ -6,7 +6,8 @@ $conn = $objDB->Connection();
 $args = "SELECT * FROM `notificaciones`";
 $sql = mysqli_query($conn, $args);
 
-$html = '<table class="table">
+if (mysqli_num_rows($sql) > 0) {
+    $html = '<table class="table">
 <thead>
     <tr class="ranking-first">
         <th scope="col"> Títol </th>
@@ -33,7 +34,10 @@ while ($rows=mysqli_fetch_assoc($sql)) {
 	</tr>';
 }
 $html .= '</table>';
-
+} else {
+    $html = "";
+}
+    
 print($html);
 
 ?>
