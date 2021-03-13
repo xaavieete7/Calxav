@@ -1,7 +1,7 @@
 <?php session_start(); ?>
 <?php
 
-if ($_POST['action'] == 'form_contract') { form_contract_save(); }
+//if ($_POST['action'] == 'form_contract') { form_contract_save(); }
 if ($_POST['action'] == 'form_calendar') { form_calendar_save(); }
 
 function form_contract_save(){

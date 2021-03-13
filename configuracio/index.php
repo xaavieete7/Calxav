@@ -66,22 +66,18 @@
                                         <div class="form-row">
 
                                             <input type="hidden" name="action" value="form_contract">
-                                            <div class="form-group col-md-4 mb-4">
+                                            <div class="form-group col-md-6 mb-4">
                                                 <label>Preu hora:</label>
-                                                <input type="number" name="priceHour" id="priceHour" value="<?php echo $priceHour; ?>" class="form-control">
+                                                <input type="number" name="priceHour" disabled id="priceHour" value="<?php echo $priceHour; ?>" class="form-control">
                                             </div>
-                                            <div class="form-group col-md-4 mb-4">
-                                                <label>Objectiu mensual:</label>
-                                                <input type="number" name="salary_target" id="salary_target" value="<?php echo $salary_target; ?>" class="form-control">
-                                            </div>
-                                            <div class="form-group col-md-4 mb-4">
+                                            <div class="form-group col-md-6 mb-4">
                                                 <label>Hores màximes:</label>
-                                                <input type="number" name="max_hours" id="max_hours" value="<?php echo $max_hours; ?>" class="form-control">
+                                                <input type="number" name="max_hours" disabled id="max_hours" value="<?php echo $max_hours; ?>" class="form-control">
                                             </div>
 
-                                            <div class="form-group col-md-12 text-right">
+                                            <!--<div class="form-group col-md-12 text-right">
                                                 <button type="button" id="save_contract_form" class="btn btn-danger boton">Guardar</button>
-                                            </div>
+                                            </div> -->
                                         </div>
 
                                     </form>
