@@ -298,7 +298,7 @@ class DatabaseConn {
             //Production db kreatings
             $conn = mysqli_connect("db5001646814.hosting-data.io", "dbu1060335", "Ionos123!", "dbs1366328");
 
-        } elseif ($_SERVER[HTTP_HOST] == 'cursos.xaviete.com') {
+        } elseif ($_SERVER[HTTP_HOST] == 'bitjaws.xaviete.com') {
 
             //Production db cursos
             $conn = mysqli_connect("db5001782897.hosting-data.io", "dbu422968", "Ionos123!", "dbs1470474");
@@ -325,7 +325,7 @@ class DatabaseConn {
             //Production server
             $pdo=new PDO("mysql:dbname=dbs1366328;host=db5001646814.hosting-data.io","dbu1060335","Ionos123!");
 
-        } elseif ($_SERVER[HTTP_HOST] == 'cursos.xaviete.com') {
+        } elseif ($_SERVER[HTTP_HOST] == 'bitjaws.xaviete.com') {
 
             //Production db cursos
             $pdo=new PDO("mysql:dbname=dbs1470474;host=db5001782897.hosting-data.io","dbu422968","Ionos123!");
