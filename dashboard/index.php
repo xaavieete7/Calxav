@@ -53,6 +53,8 @@
         $hores_total = $rows['SUM(`horas`)'];
         if (empty($hores_total)){
             $hores_total = 0;
+        } else {
+            $hores_total = round($hores_total);
         }
 
         //Hores limit
