@@ -61,7 +61,7 @@ if ($_SESSION['rank'] == 'viewer') {
             $salari = 0;
         }
 
-        if ($horas != 0) {
+        if ($horas != 0 ) {
 
             $html .= '<tr>';
                 $html .= '<td>' . $name_month[$i] .'</td>';
@@ -81,6 +81,7 @@ if ($_SESSION['rank'] == 'viewer') {
             $html .= '<a href="/estadistiques?user_id='.$user_id.'" class="text-danger">Veure la taula completa</a>';
         $html .= '</div>';
     $html .= '</div>';
+
 
 } else {
 
@@ -106,22 +107,28 @@ if ($_SESSION['rank'] == 'viewer') {
         $salari = 0;
     }
 
-    $html .= '<table class="table">';
-        $html .= '<thead>';
-            $html .= '<tr>';
-                $html .= '<th>Mes</th>';
-                $html .= '<th>Hores</th>';
-                $html .= '<th>Salari</th>';
-            $html .= '</tr>';
-        $html .= '</thead>';
+    if ($horas != 0 && $salari != 0) {
+
+        $html .= '<table class="table">';
+            $html .= '<thead>';
+                $html .= '<tr>';
+                    $html .= '<th>Mes</th>';
+                    $html .= '<th>Hores</th>';
+                    $html .= '<th>Salari</th>';
+                $html .= '</tr>';
+            $html .= '</thead>';
             $html .= '<tbody>';
-            $html .= '<tr>';
-                $html .= '<td>' . $name_month[$num_mes] . '</td>';
-                $html .= '<td>' . $horas . 'h</td>';
-                $html .= '<td>' . $salari . '€</td>';
-            $html .= '</tr>';
-        $html .= '</tbody>';
-    $html .= '</table>';
+                $html .= '<tr>';
+                    $html .= '<td>' . $name_month[$num_mes] . '</td>';
+                    $html .= '<td>' . $horas . 'h</td>';
+                    $html .= '<td>' . $salari . '€</td>';
+                $html .= '</tr>';
+            $html .= '</tbody>';
+        $html .= '</table>';
+
+    }
+
+
 }
 
 print($html);

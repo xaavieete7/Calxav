@@ -76,11 +76,11 @@
                                             <div id="info_table" class="table-responsive col-md-10 col-sm-12 text-center mt-3"></div>
                                         </div>
 
-                                        <div class="row justify-center">
+                                        <!--<div class="row justify-center">
                                             <div class="text-right col-md-10 col-sm-12">
                                                 <a href="/estadistiques" class="text-danger">Veure la taula completa</a>
                                             </div>
-                                        </div>
+                                        </div>-->
 
                                     <?php } else { ?>
                                         
